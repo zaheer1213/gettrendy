@@ -1,0 +1,86 @@
+/* Categories.css */
+.categories-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    /* 6 items per row */
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    /* Set max width to 1200px */
+    margin: 0 auto;
+    /* Center the container */
+}
+
+.category-item {
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.category-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.category-item p {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.category-item:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+
+/* For screens between 900px and 1199px: Show 4 items per row */
+@media (max-width: 1199px) {
+    .categories-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* For screens between 600px and 899px: Show 3 items per row */
+@media (max-width: 899px) {
+    .categories-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* For screens between 400px and 599px: Show 2 items per row */
+@media (max-width: 599px) {
+    .categories-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* For screens less than 400px: Show 1 item per row */
+@media (max-width: 399px) {
+    .categories-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .categories-container {
+        grid-template-columns: repeat(2, 1fr);
+        /* Show 2 items per row */
+        gap: 15px;
+        /* Reduce the gap between items */
+    }
+
+    .category-item img {
+        width: 80px;
+        /* Reduce the size of images */
+        height: 80px;
+        /* Ensure the images remain square */
+    }
+
+    .category-item p {
+        font-size: 12px;
+        /* Decrease font size for better fit */
+    }
+}

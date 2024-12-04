@@ -1,0 +1,89 @@
+.custom-carousel {
+    width: 100%;
+    padding-top: 120px;
+    background-color: #333333;
+    min-height: 50vh;
+    color: white;
+}
+
+.carousel-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    height: 85vh;
+}
+
+.left-side {
+    flex: 1;
+    max-width: 50%;
+    /* Limit width for text */
+    padding-right: 20px;
+    /* Space between text and image */
+}
+
+.left-side h5 {
+    font-size: 1.2em;
+    /* Smaller subheading */
+    color: white;
+    font-style: italic;
+    /* Subheading color */
+}
+
+.left-side h3 {
+    font-size: 3.5rem;
+    margin: 10px 0;
+    font-weight: bold;
+    font-style: italic;
+    color: white;
+}
+
+.left-side p {
+    font-size: 1em;
+    /* Paragraph size */
+    margin-bottom: 20px;
+    color: white;
+    /* Space below paragraph */
+}
+
+.home-btn {
+    background-color: yellow !important;
+    color: black !important;
+    font-weight: bold !important;
+    border-radius: 50px !important;
+}
+
+.right-side {
+    flex: 1;
+    max-width: 50%;
+    /* Limit width for image */
+}
+
+.right-side img {
+    max-width: 100%;
+    height: auto;
+}
+
+.image-bottom {
+    height: 120px;
+    width: 150px;
+    object-fit: cover;
+    /* Ensures the image doesn't blur and maintains its aspect ratio */
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .left-side h3 {
+        font-size: 2.5rem;
+    }
+
+    .left-side p {
+        font-size: 15px;
+    }
+
+    .carousel-content {
+        height: 80vh;
+    }
+}

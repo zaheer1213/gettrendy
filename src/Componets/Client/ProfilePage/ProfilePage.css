@@ -1,0 +1,26 @@
+/* Centering the form vertically and horizontally */
+.profile-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.profile-details {
+    width: 100%;
+    /* Full width for mobile */
+    min-width: 600px;
+    /* Limit the width on larger screens */
+    padding: 20px;
+    /* Add some padding */
+    background-color: #f8f9fa;
+    /* Optional background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Optional shadow */
+    border-radius: 8px;
+    /* Optional rounded corners */
+}
+.profile-details h3{
+    font-weight: bold;
+}

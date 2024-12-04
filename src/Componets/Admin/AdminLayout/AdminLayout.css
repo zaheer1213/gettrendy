@@ -1,0 +1,183 @@
+/* AdminLayout.css */
+.admin-layout {
+    display: flex;
+    flex-direction: row;
+}
+
+.admin-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 300px;
+    /* Width of the sidebar */
+    margin-top: 100px;
+    /* Height of the MenuBar */
+    overflow-y: auto;
+}
+
+/* src/components/MenuBar.css */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 0 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.hamburger-menu {
+    position: relative;
+}
+
+.hamburger-icon {
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.menu-list {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: white;
+    color: black;
+    width: 200px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.menu-list.open {
+    display: block;
+}
+
+.menu-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-list li {
+    padding: 12px 16px;
+}
+
+.menu-list li a {
+    color: black;
+    text-decoration: none;
+}
+
+.menu-list li a:hover {
+    color: #5b549e;
+}
+
+.iconcolor {
+    color: #5b549e;
+}
+
+/* src/components/Sidebar.css */
+/* .sidebar {
+    width: 300px;
+    height: 100vh;
+    background-color: white;
+    color: black !important;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 60px;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
+} */
+
+/* .sidebar-header {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: white;
+    flex-grow: 1;
+}
+
+.sidebar-item {
+    color: black;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.sidebar-item:hover {
+    background-color: white;
+}
+
+.sidebar-icon {
+    margin-right: 10px;
+} */
+
+.active {
+    /* Highlight the active link */
+}
+
+/* .sidebarimg {
+    height: 150px;
+    width: 150px;
+    border-radius: 10000px;
+    object-fit: cover;
+}
+
+.sidebarbtn {
+    height: 30px;
+    width: 154px;
+    background: #5b549e !important;
+    margin-bottom: 5px;
+    border-radius: 50px !important;
+    border: 1px solid white !important;
+    color: white;
+} */
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+    position: relative;
+}
+
+.search-icon {
+    margin-left: 5px;
+    color: #5b549e;
+    position: absolute;
+    left: 10px;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    padding: 5px 5px 5px 30px;
+    /* Adjusted for icon padding */
+    flex-grow: 1;
+    border-radius: 5px;
+    width: 100%;
+    color: black;
+    border-bottom: 2px solid #ccc;
+}
+
+@media (max-width: 768px) {
+    .admin-content {
+        flex: 1;
+        padding: 20px;
+        margin-left: 0px;
+        margin-top: 90px;
+        /* overflow-y: auto; */
+    }
+}

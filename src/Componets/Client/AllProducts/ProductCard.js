@@ -106,7 +106,7 @@ const ProductCard = () => {
             </div>
             <div className="section-line"></div>
           </div>
-          <div className="header">
+          {/* <div className="header">
             <Nav variant="tabs" activeKey="allProducts">
               <Nav.Item>
                 <Nav.Link eventKey="allProducts">All Products</Nav.Link>
@@ -118,7 +118,7 @@ const ProductCard = () => {
                 placeholder="Search for any delicious product"
               />
             </div>
-          </div>
+          </div> */}
           <Row className="">
             {allProducts && allProducts?.length > 0 ? (
               allProducts.map((product) => (

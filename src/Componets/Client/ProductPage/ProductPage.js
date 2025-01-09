@@ -34,7 +34,7 @@ const ProductPage = () => {
         </div>
 
         {/* Right Section - Products */}
-        <div className="col-lg-4 col-md-6">
+        <div className="col-lg-4 col-md-6 mt-3">
           <h3 className="hading">Top Selling Products</h3>
           <div className="customs-product-card">
             <Row>
@@ -103,7 +103,7 @@ const ProductPage = () => {
           </div>
         </div>
 
-        <div className="col-lg-4 col-md-6">
+        <div className="col-lg-4 col-md-6 mt-3">
           <h3 className="hading">Top Rated Products</h3>
           <div className="customs-product-card">
             <Row>

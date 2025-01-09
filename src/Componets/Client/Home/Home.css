@@ -76,14 +76,15 @@
 
 @media (max-width: 768px) {
     .left-side h3 {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
     }
 
     .left-side p {
-        font-size: 15px;
+        font-size: 13px;
+        font-weight: 200;
     }
 
     .carousel-content {
-        height: 80vh;
+        height: 50vh;
     }
 }

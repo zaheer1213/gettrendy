@@ -9,16 +9,16 @@ const CancellationReschedule = () => {
           <h1 className="title">ORDER CANCELLATION AND RESCHEDULE POLICY</h1>
           <strong>Effective Date: 15th January 2024</strong>
           <p>
-            These terms and conditions govern Delightful Gourmet Private Meat
-            Window (“Meat Window”) Order Cancellation and Reschedule Policy. Any
-            Capitalized terms used but not defined herein shall have the meaning
-            assigned to them under the Terms of Service which govern your use of
-            our website www.Meat Window.in (the “Website”) and our Meat Window
-            application for mobile and handheld devices (the “App”). The Website
-            and the App are jointly referred to as the “Platform”. By placing an
-            order with Meat Window, the Customer (“You”/”User”) agrees to abide
-            by the terms and conditions outlined in this Order Cancellation and
-            Reschedule Policy.
+            These terms and conditions govern Delightful Gourmet Private Get
+            Trendy Order Cancellation and Reschedule Policy. Any Capitalized
+            terms used but not defined herein shall have the meaning assigned to
+            them under the Terms of Service which govern your use of our website
+            www.Get Trendy.in (the “Website”) and our Get Trendy application for
+            mobile and handheld devices (the “App”). The Website and the App are
+            jointly referred to as the “Platform”. By placing an order with Get
+            Trendy, the Customer (“You”/”User”) agrees to abide by the terms and
+            conditions outlined in this Order Cancellation and Reschedule
+            Policy.
           </p>
           <strong>Cancellation of Orders</strong>
           <p>
@@ -38,22 +38,22 @@ const CancellationReschedule = () => {
           </p>
           <p>
             However, subject to the User's previous cancellation history or on
-            the basis of misuse of this Policy or any other Policy, Meat Window
+            the basis of misuse of this Policy or any other Policy, Get Trendy
             reserves the right to suspend, terminate and/or cancel the order
             placed by the User without reason and may charge a penalty of upto
             100% of the order value and take any other necessary action not
             limited to initiating legal action against the User.
           </p>
           <p>
-            For "Pay Online on Delivery" (POD) orders, Meat Window reserves the
+            For "Pay Online on Delivery" (POD) orders, Get Trendy reserves the
             right to recover the cancellation fee of upto 100% (one hundred
             percent) of the order value from the User in the subsequent order.
           </p>
           <p>
-            Meat Window reserves the right to collect a penalty of upto 100%
-            (one hundred percent) of the order value for the Orders constrained
-            to be cancelled for reasons not attributable to Meat Window,
-            including but not limited to
+            Get Trendy reserves the right to collect a penalty of upto 100% (one
+            hundred percent) of the order value for the Orders constrained to be
+            cancelled for reasons not attributable to Get Trendy, including but
+            not limited to
           </p>
           <ul>
             <li>
@@ -70,8 +70,8 @@ const CancellationReschedule = () => {
             </li>
           </ul>
           <p>
-            In case of cancellations for the reasons attributable to Meat
-            Window, Meat Window shall not collect any penalty from the User.
+            In case of cancellations for the reasons attributable to Get Trendy
+            shall not collect any penalty from the User.
           </p>
           <strong>Reschedule of Orders</strong>
           <p>
@@ -81,14 +81,14 @@ const CancellationReschedule = () => {
           <ul>
             <li>
               When placing Scheduled Orders as per the slots made available to
-              the User by Meat Window (“Scheduled Order”), Users may choose to
+              the User by Get Trendy (“Scheduled Order”), Users may choose to
               reschedule their order up to two times, provided the rescheduling
               is done "2 hours" prior to the slot start time. These reschedules
               shall be free of charge.
             </li>
             <li>
               When placing Express Orders as per the Express Delivery slot made
-              available to the User by Meat Window, Users may choose to
+              available to the User by Get Trendy, Users may choose to
               reschedule their order up to one time at any point, prior to being
               delivered. Rescheduling within these conditions is free of charge.
             </li>
@@ -108,12 +108,12 @@ const CancellationReschedule = () => {
           <p>
             If you have any questions or require assistance with order
             cancellations or rescheduling, please contact our customer support
-            team at 000-000-0000 or Meat Window.com.
+            team at 000-000-0000 or Get Trendy.com.
           </p>
           <p>
-            By placing an order with Meat Window, you agree to abide by the
-            terms and conditions outlined in this Order Cancellation and
-            Reschedule Policy.
+            By placing an order with Get Trendy, you agree to abide by the terms
+            and conditions outlined in this Order Cancellation and Reschedule
+            Policy.
           </p>
         </div>
       </div>

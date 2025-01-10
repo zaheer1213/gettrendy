@@ -22,7 +22,7 @@ const PrivacyPolicy = () => {
           </p>
 
           <p>
-            The website – www.example.com ("Website"), the mobile application
+            The website – www.gettrendy.in ("Website"), the mobile application
             ("App"), and the mobile site ("Msite") (together referred to as the
             "Platform") are made available by Example Company ("Company" or
             "we"). This Policy demonstrates our firm commitment to protecting
@@ -312,12 +312,12 @@ const PrivacyPolicy = () => {
             information, you may contact:
           </p>
           <ul style={{ listStyle: "none" }}>
-            <li>XYZ FFFF</li>
-            <li>Meat Window Private Limited</li>
-            <li>Reg Office: Maruthi Infotech Center 11/1,12/1 B wing 1st</li>
-            <li>Floor Amarjyothi layout Intermediate ring</li>
-            <li>road Domlur, B.B.M.P East, Maharashtra -560071</li>
-            <li>Email: meatwindow@gmail.com</li>
+            <li>Get Trendy</li>
+            <li>
+              Flat No. 403, 4th Floor, B-wing, Saraswati Crystal Opp. Silver
+              Brich Hospital, Raikar Mala, Dhayari, Pune-411041
+            </li>
+            <li>Email: prashhaant@gmail.com</li>
           </ul>
           <p>
             All email messages sent to and from the Company may be monitored

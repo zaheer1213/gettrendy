@@ -32,7 +32,7 @@ const AddEditOrders = () => {
       },
     ],
     username: "Store Admin",
-    store_name: "Meat Window Store 1",
+    store_name: "Get Trendy Store 1",
   };
   return (
     <>

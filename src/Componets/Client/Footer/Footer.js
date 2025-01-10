@@ -37,9 +37,9 @@ const Footer = () => {
                   }}
                 />
                 <p className="text-white">
-                  Here you can use rows and columns to organize your footer
-                  content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                  elit.
+                  GET Trendy brings you premium-quality T-shirts designed to
+                  match your unique style. We believe in combining comfort,
+                  creativity, and customer care to deliver the best for you!
                 </p>
               </MDBCol>
 
@@ -110,7 +110,7 @@ const Footer = () => {
         </section>
         <section
           className="d-flex justify-content-center  p-4 border-bottom"
-          style={{ backgroundColor: "black",color:"white" }}
+          style={{ backgroundColor: "black", color: "white" }}
         >
           <div>
             <a href="" className="me-4 text-reset">
@@ -132,7 +132,7 @@ const Footer = () => {
         </section>
         <div
           className="text-center p-4"
-          style={{ backgroundColor: "black",color:"white" }}
+          style={{ backgroundColor: "black", color: "white" }}
         >
           © {new Date().getFullYear()} All Rights Reserved &nbsp; | &nbsp;
           <a className="text-reset fw-bold" href="">

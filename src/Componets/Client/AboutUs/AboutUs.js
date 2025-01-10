@@ -14,34 +14,33 @@ const AboutUs = () => {
           <div className="hero-text-div rounded-3 mx-auto p-5">
             <h1 className="text-center mb-4">About Us</h1>
             <p className="text-center">
-              KGN Xprs is a creation of people’s love and our sincere commitment
-              towards offering quality food at affordable price. It all started
-              with a simple thought to reach every heart of Pune & PCMC.
+              At GET Trendy, we don’t just sell T-shirts; we create experiences.
+              We care deeply about our customers and believe in delivering
+              nothing but the best. Every design is crafted with love, every
+              stitch speaks of quality, and every T-shirt reflects our
+              commitment to your satisfaction. Because at GET Trendy, your style
+              and comfort are our top priorities.
             </p>
           </div>
         </div>
         <div className="our-mission-section row mx-auto column-gap-1 ">
           <div class="col-12 col-xl-5 ml-lg-0 mr-lg-auto ">
-            <h2 className="mb-4 text-center text-xl-start">Our Mission</h2>
+            <h2 className="mb-4 text-center text-xl-start">
+              Stay Trendy with GET Trendy!
+            </h2>
             <p>
-              An overwhelming response received from people has encouraged KGN
-              Xprs to go beyond imagination. Initially the biggest challenge was
-              to meet people’s expectations. The brand received tremendous
-              response but had limited presence that has inspired us to start a
-              franchisee model. Same taste across franchisees and unmatched
-              services is a unique element of KGN Xprs.
-            </p>
-
-            <p>
-              Today KGN Xprs is a trusted and familiar brand in Pune, PCMC and
-              Lonavala. We take pride in saying that our exceptional work is
-              that we are engaged in creating entrepreneurs.
+              Welcome to GET Trendy, your ultimate destination for stylish and
+              comfortable T-shirts. We blend quality, creativity, and the latest
+              trends to bring you designs that speak your personality. Whether
+              it’s casual vibes or bold statements, GET Trendy helps you wear
+              your story with confidence. Join us in redefining style, one
+              T-shirt at a time!
             </p>
           </div>
 
           <div class="col-12 col-xl-6 mx-auto ml-xl-auto mr-xl-0">
             <img
-              src="/Images/kgn-food.jpg"
+              src="/Images/man.jpg"
               alt="imgs"
               className="rounded-3 img-fluid"
             />
@@ -55,7 +54,7 @@ const AboutUs = () => {
                 style={{ fontSize: "50px" }}
                 className="mb-3 feature-icon"
               />
-              <h5 className="text-center">Delicious and High-Quality Food</h5>
+              <h5 className="text-center">High-Quality Products</h5>
             </div>
             <div className="col d-flex flex-column align-items-center p-5 feature-box col-12 col-md-5 col-xl">
               <TbBowlSpoon style={{ fontSize: "50px" }} className="mb-3" />

@@ -44,8 +44,7 @@ const Shop = () => {
       id: 2,
       name: "Wristbands or Socks",
       price: 60.0,
-      image:
-        "/Images/Wristbands or Socks.jpg",
+      image: "/Images/Wristbands or Socks.jpg",
       category: "Strawberry",
       rating: "★★★★",
     },
@@ -53,8 +52,7 @@ const Shop = () => {
       id: 3,
       name: "Backpacks",
       price: 30.0,
-      image:
-        "/Images/Everyday Casual Backpack.jpg",
+      image: "/Images/Everyday Casual Backpack.jpg",
       category: "Meat",
       rating: "★★★★★",
     },

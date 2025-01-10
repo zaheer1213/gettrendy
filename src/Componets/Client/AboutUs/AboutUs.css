@@ -1,8 +1,7 @@
 .about-us-hero-section {
-    background-image: url('../../../../public/Images/about-us-food.jpg');
+    background-image: url('../../../../public/Images/bg.jpg');
     min-height: 700px;
     background-size: cover;
-
     display: flex;
     align-items: center;
     margin-bottom: 150px;

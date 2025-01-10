@@ -77,7 +77,8 @@ const Testimonials = () => {
               <div className="col-md-4 text-center">
                 <div className="custom-testimonial-image">
                   <img
-                    src="https://shofy-grocery-next-js.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fusers%2Fuser-4.jpg&w=256&q=75"
+                    // src="https://shofy-grocery-next-js.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fusers%2Fuser-4.jpg&w=256&q=75"
+                    src="/Images/user.png"
                     alt={testimonial.name}
                   />
                 </div>

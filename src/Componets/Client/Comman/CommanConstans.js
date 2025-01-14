@@ -1,6 +1,5 @@
-// const BASEURL = "http://139.59.2.27:8002";
-const BASEURL = "http://64.227.159.26:8001";
-// const BASEURL = "http://192.168.1.3:8000";
+// const BASEURL = "http://64.227.159.26:8001";
+const BASEURL = "https://gettrendy.in:8000/";
 
 // Countries List
 const Countries = [

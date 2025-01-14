@@ -79,3 +79,8 @@
     background-color: #E9272D !important;
     color: white !important;
 }
+@media (max-width :767px) {
+    .product-image-container {
+       margin-top: 20px;
+    }
+}

@@ -46,34 +46,35 @@ const Footer = () => {
               <MDBCol md="2" lg="2" xl="2" className="mx-auto mb-4">
                 <h6 className="text-uppercase fw-bold mb-4">My Account</h6>
                 <p>
-                  <a href="#!" className="text-white">
-                    Track Orders
-                  </a>
-                </p>
-                <p>
-                  <a href="#!" className="text-white">
-                    Shipping
-                  </a>
-                </p>
-                <p>
-                  <a href="#!" className="text-white">
-                    My Account
-                  </a>
-                </p>
-                <p>
-                  <a href="/storeRegister" className="text-white">
-                    My Store
-                  </a>
-                </p>
-              </MDBCol>
-
-              <MDBCol md="3" lg="2" xl="2" className="mx-auto mb-4">
-                <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
-                <p>
                   <a href="/aboutUs" className="text-white">
                     About Us
                   </a>
                 </p>
+                <p>
+                  <a href="/myOrders" className="text-white">
+                    Track Orders
+                  </a>
+                </p>
+                {/* <p>
+                  <a href="#!" className="text-white">
+                    Shipping
+                  </a>
+                </p> */}
+                <p>
+                  <a href="/profilePage" className="text-white">
+                    My Account
+                  </a>
+                </p>
+                {/* <p>
+                  <a href="/storeRegister" className="text-white">
+                    My Store
+                  </a>
+                </p> */}
+              </MDBCol>
+
+              <MDBCol md="3" lg="2" xl="2" className="mx-auto mb-4">
+                <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
+
                 <p>
                   <a href="/privacyPolicy" className="text-white">
                     Privacy Policy

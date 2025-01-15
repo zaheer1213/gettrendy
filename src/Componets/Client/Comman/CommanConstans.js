@@ -1,5 +1,5 @@
 // const BASEURL = "http://64.227.159.26:8001";
-const BASEURL = "https://gettrendy.in:8000/";
+const BASEURL = "https://gettrendy.in:8000";
 
 // Countries List
 const Countries = [

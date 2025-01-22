@@ -14,12 +14,12 @@ const AboutUs = () => {
           <div className="hero-text-div rounded-3 mx-auto p-5">
             <h1 className="text-center mb-4">About Us</h1>
             <p className="text-center">
-              At GET Trendy, we don’t just sell T-shirts; we create experiences.
-              We care deeply about our customers and believe in delivering
-              nothing but the best. Every design is crafted with love, every
-              stitch speaks of quality, and every T-shirt reflects our
-              commitment to your satisfaction. Because at GET Trendy, your style
-              and comfort are our top priorities.
+              Welcome to Gettrendy.in, your ultimate destination for stylish and
+              comfortable men's fashion. We specialize in T-shirts, Hoodies, and
+              Jackets, bringing you trendsetting designs that seamlessly blend
+              fashion with function. Whether you're looking to make a statement
+              with bold prints or prefer classic, everyday essentials, we've got
+              you covered.
             </p>
           </div>
         </div>
@@ -29,13 +29,17 @@ const AboutUs = () => {
               Stay Trendy with GET Trendy!
             </h2>
             <p>
-              Welcome to GET Trendy, your ultimate destination for stylish and
-              comfortable T-shirts. We blend quality, creativity, and the latest
-              trends to bring you designs that speak your personality. Whether
-              it’s casual vibes or bold statements, GET Trendy helps you wear
-              your story with confidence. Join us in redefining style, one
-              T-shirt at a time!
+              At Gettrendy.in, we believe that style should be effortless and
+              accessible. Our collection is crafted with high-quality fabrics
+              and attention to detail, ensuring you stay comfortable while
+              looking your best—no matter the occasion. From casual streetwear
+              to smart layering options, we provide versatile pieces that fit
+              your lifestyle. With a commitment to affordability, quality, and customer
+              satisfaction, we strive to make your shopping experience smooth
+              and enjoyable. Discover the latest trends and redefine your
+              wardrobe with Gettrendy.in—where comfort meets style.
             </p>
+           
           </div>
 
           <div class="col-12 col-xl-6 mx-auto ml-xl-auto mr-xl-0">

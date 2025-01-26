@@ -30,7 +30,7 @@ const ProfilePage = () => {
     try {
       const response = await axios.get(`${BASEURL}/accounts/user-profile`, {
         headers: {
-          "x-access-token": userToken,
+          "x-access-token": userToken || localStorage.getItem("token"),
         },
       });
       const data = response.data.data;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   MDBFooter,
   MDBContainer,
@@ -15,8 +15,11 @@ import {
 } from "react-icons/fa";
 import { FaLinkedinIn, FaLocationPinLock } from "react-icons/fa6";
 import { BsFillTelephoneInboundFill } from "react-icons/bs";
+import { useAuth } from "../../AuthContext/AuthContext";
 
 const Footer = () => {
+  const { userToken } = useAuth();
+
   return (
     <>
       <MDBFooter bgColor="light" className="text-center text-lg-start ">
@@ -60,11 +63,20 @@ const Footer = () => {
                     Shipping
                   </a>
                 </p> */}
-                <p>
-                  <a href="/profilePage" className="text-white">
-                    My Account
-                  </a>
-                </p>
+                {userToken ? (
+                  <p>
+                    <a href="/profilePage" className="text-white">
+                      My Account
+                    </a>
+                  </p>
+                ) : (
+                  <p>
+                    <a href="/login" className="text-white">
+                      My Account
+                    </a>
+                  </p>
+                )}
+
                 {/* <p>
                   <a href="/storeRegister" className="text-white">
                     My Store
@@ -78,6 +90,11 @@ const Footer = () => {
                 <p>
                   <a href="/privacyPolicy" className="text-white">
                     Privacy Policy
+                  </a>
+                </p>
+                <p>
+                  <a href="/termsconditions" className="text-white">
+                    Terms & Conditions
                   </a>
                 </p>
                 <p>

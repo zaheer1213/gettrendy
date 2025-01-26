@@ -31,7 +31,7 @@ function Register() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [check, setCheck] = useState(true);
-  const [pincode, setPinCode] = useState();
+  const [pincode, setPinCode] = useState(411046);
 
   const handleClose = () => {
     setShow(false);
@@ -101,7 +101,7 @@ function Register() {
       formData.append("confirmPassword", confirmPassword);
       formData.append("accepted_policy", check);
       formData.append("user_role", UserRoles.Customer);
-      formData.append("pincode", pincode);
+     
 
       try {
         const response = await axios.post(

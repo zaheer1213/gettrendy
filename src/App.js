@@ -47,6 +47,7 @@ import DeliveryPartner from "./Componets/Admin/DeliveryPartner/DeliveryPartner";
 import AddEditDeliveryPartners from "./Componets/Admin/DeliveryPartner/AddEditDeliveryPartners";
 import ProductCard from "./Componets/Client/AllProducts/ProductCard";
 import DeliveryHome from "./Componets/DeliveryBoy/DeliveryHome/DeliveryHome";
+import TermsConditions from "./Componets/Client/Terms&Conditions/TermsConditions";
 
 const App = () => {
   const location = useLocation();
@@ -98,6 +99,7 @@ const App = () => {
         <Route path="/confirm-order" element={<PaymentSuccess />} />
         <Route path="/productCard" element={<ProductCard />} />
         <Route path="/delivery-home" element={<DeliveryHome />} />
+        <Route path="/termsconditions" element={<TermsConditions />} />
 
         {/* Admin Routes */}
         <Route element={<AdminLayout />}>

@@ -92,7 +92,7 @@ const Navigation = () => {
   const getAllCategories = async () => {
     try {
       const response = await axios.get(
-        `${BASEURL}/customers/category?page=1&limit=100`,
+        `${BASEURL}/customers/sub-category?page=1&limit=50`,
         {
           headers: {
             "x-access-token": userToken || localStorage.getItem("token"),
@@ -319,7 +319,7 @@ const Navigation = () => {
                                 }}
                                 className="category-image"
                               />
-                              <strong>{category.category_name}</strong>
+                              <strong>{category.name}</strong>
                             </div>
                             {/* <div className="subcategory">
                               {category.products.map((product, subIndex) => (
@@ -390,7 +390,7 @@ const Navigation = () => {
                   </Nav.Link>
                 )}
               </div>
-              {userToken && (
+              {/* {userToken && (
                 <NavDropdown
                   title={
                     <>
@@ -417,12 +417,36 @@ const Navigation = () => {
                     &nbsp; Log Out
                   </NavDropdown.Item>
                 </NavDropdown>
-              )}
+              )} */}
 
-              {/* Login/Logout */}
               <Nav>
                 {userToken ? (
-                  <span></span>
+                  <NavDropdown
+                    title={
+                      <>
+                        <FontAwesomeIcon icon={faUser} />
+                        <span className="ms-2">
+                          {userName ? userName : "Hello"}
+                        </span>
+                      </>
+                    }
+                    id="basic-nav-dropdown"
+                  >
+                    <NavDropdown.Item
+                      onClick={() => handleNavItemClick("/profilePage")}
+                    >
+                      <FaRegUserCircle size={20} /> &nbsp; Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      onClick={() => handleNavItemClick("/myOrders")}
+                    >
+                      <FaTruck size={20} /> &nbsp; My Orders
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => handleShow()}>
+                      <FaSignOutAlt size={24} />
+                      &nbsp; Log Out
+                    </NavDropdown.Item>
+                  </NavDropdown>
                 ) : (
                   <Nav.Link href="/login">
                     <FaSignInAlt size={24} />

@@ -306,7 +306,11 @@ const PrivacyPolicy = () => {
             personal information, we will take steps to delete that information
             and terminate the relevant user account.
           </p>
-          <h5>H. Grievances</h5>
+          <h5>H. Shipping Policy</h5>
+          <p>
+            Processing Time : All orders are delivered within 2-3 business days.
+          </p>
+          <h5>I. Grievances</h5>
           <p>
             Should you have any grievances about the processing of your personal
             information, you may contact:

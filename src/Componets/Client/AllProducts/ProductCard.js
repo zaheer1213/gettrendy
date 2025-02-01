@@ -73,7 +73,6 @@ const ProductCard = () => {
   };
   const handlePageChange = (event, value) => {
     setPageAll(value);
-    getAllProducts();
   };
 
   const renderPaginationCount = () => {
@@ -87,7 +86,7 @@ const ProductCard = () => {
   };
   useEffect(() => {
     getAllProducts();
-  }, [pageAll]);
+  }, [pageAll, limitAll]);
   return (
     <>
       {loading ? <Loader /> : ""}
@@ -122,7 +121,13 @@ const ProductCard = () => {
           <Row className="">
             {allProducts && allProducts?.length > 0 ? (
               allProducts.map((product) => (
-                <Col lg={3} md={6} sm={12} key={product.id} className="mb-5 d-flex justify-content-center">
+                <Col
+                  lg={3}
+                  md={6}
+                  sm={12}
+                  key={product.id}
+                  className="mb-5 d-flex justify-content-center"
+                >
                   <Card className="costume-product-card">
                     <div className="product-image-container">
                       <Card.Img
@@ -221,20 +226,20 @@ const ProductCard = () => {
                 <h4>No Data Found</h4>
               </div>
             )}
-            <div className="display-start mb-5">
+            <div className="text-start">
               <Stack spacing={2}>
                 <Pagination
-                  count={renderPaginationCount()}
-                  page={pageAll}
+                  count={pagesCountAll} // Total number of pages
+                  page={pageAll} // Current page
                   variant="outlined"
                   shape="rounded"
-                  onChange={handlePageChange}
+                  onChange={handlePageChange} // Handle page change
                 />
               </Stack>
             </div>
             <div className="text-center">
               <Button className="button" onClick={() => navigateToShop()}>
-                Shop Now
+                Show All
               </Button>
             </div>
           </Row>

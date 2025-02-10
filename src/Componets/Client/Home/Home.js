@@ -68,7 +68,7 @@ const Home = () => {
               data-aos-duration="2000"
             >
               {/* <img src="/Images/todays.png" alt="label" /> */}
-              <h3>Style Meets Comfort: T-Shirts That Speak</h3>
+              <h3>Style Meets Comfort : T-Shirts That Speak</h3>
               <p>
                 Discover ultra-soft, durable T-shirts designed to make a
                 statement. Perfect for casual wear, workouts, or just chilling
@@ -99,7 +99,7 @@ const Home = () => {
               data-aos-duration="2000"
             >
               {/* <img src="/Images/todays.png" alt="label" /> */}
-              <h3>Your Style, Your Tee: Find the Perfect Fit</h3>
+              <h3>Your Style, Your Tee : Find the Perfect Fit</h3>
               <p>
                 Explore a wide range of trendy T-shirts in every size, color,
                 and design. Shop now and redefine your wardrobe with effortless

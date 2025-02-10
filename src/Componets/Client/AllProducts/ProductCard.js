@@ -128,7 +128,10 @@ const ProductCard = () => {
                   key={product.id}
                   className="mb-5 d-flex justify-content-center"
                 >
-                  <Card className="costume-product-card">
+                  <Card
+                    className="costume-product-card"
+                    onClick={() => navigateToProduct(product.id)}
+                  >
                     <div className="product-image-container">
                       <Card.Img
                         variant="top"
@@ -147,13 +150,13 @@ const ProductCard = () => {
                       <Card.Text className="product-weight">
                         &nbsp;&nbsp;
                         {product.weight ? (
-                          <span>• {product.weight} g</span>
+                          <span>• {product.weight} </span>
                         ) : (
                           ""
                         )}{" "}
                         &nbsp;{" "}
                         {product.no_of_pices ? (
-                          <span>• {product.no_of_pices} Pieces</span>
+                          <span>• {product.no_of_pices} Piece</span>
                         ) : (
                           ""
                         )}{" "}
@@ -226,22 +229,22 @@ const ProductCard = () => {
                 <h4>No Data Found</h4>
               </div>
             )}
-            <div className="text-start">
-              <Stack spacing={2}>
-                <Pagination
-                  count={pagesCountAll} // Total number of pages
-                  page={pageAll} // Current page
-                  variant="outlined"
-                  shape="rounded"
-                  onChange={handlePageChange} // Handle page change
-                />
-              </Stack>
-            </div>
-            <div className="text-center">
-              <Button className="button" onClick={() => navigateToShop()}>
-                Show All
-              </Button>
-            </div>
+              <div className="text-center mb-3">
+                <Stack spacing={2}>
+                  <Pagination
+                    count={pagesCountAll} // Total number of pages
+                    page={pageAll} // Current page
+                    variant="outlined"
+                    shape="rounded"
+                    onChange={handlePageChange} // Handle page change
+                  />
+                </Stack>
+              </div>
+              <div className="text-center mb-3 mt-2">
+                <Button className="button" onClick={() => navigateToShop()}>
+                  Show All
+                </Button>
+              </div>
           </Row>
         </Container>
       </div>

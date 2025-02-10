@@ -147,13 +147,13 @@ const Bestsellers = () => {
                               className="view-more-btn"
                               onClick={() => navigateToProduct(product.id)}
                             >
-                              <FaEye />
+                              View More
                             </Button>
                             <Button
                               className="add-to-cart-btn"
                               onClick={() => handleAddToCart(product)}
                             >
-                              <FaCartPlus />
+                              Add To Cart
                             </Button>
                           </div>
                         </Card.Body>

@@ -32,7 +32,7 @@ const Services = () => {
                 </span>
               </div>
               <div>
-                <strong>100% Money Back</strong>
+                <strong>100% Money Back </strong>
               </div>
             </div>
           </Col>
@@ -45,7 +45,7 @@ const Services = () => {
                 </span>
               </div>
               <div>
-                <strong>Secure Payment</strong>
+                <strong>Secure Payments</strong>
               </div>
             </div>
           </Col>
@@ -58,7 +58,7 @@ const Services = () => {
                 </span>
               </div>
               <div>
-                <strong>24 Hour Support</strong>
+                <strong>24 Hours Support</strong>
               </div>
             </div>
           </Col>

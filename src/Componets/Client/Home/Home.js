@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import Hero from "../Hero/Hero";
 import "./Home.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import Banner from "./Banner";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -14,6 +15,13 @@ const Home = () => {
     navigate("/shop");
     window.scroll(0, 0);
   };
+
+  useEffect(() => {
+    Aos.init({
+      duration: 1000,
+      once: true,
+    });
+  }, []);
   return (
     <>
       <Carousel
@@ -22,10 +30,14 @@ const Home = () => {
         className="custom-carousel"
       >
         <Carousel.Item>
-          <div className="carousel-content">
-            <div className="left-side">
+          <div className="carousel-content" >
+            <div
+              className="left-side"
+              data-aos="fade-right"
+              data-aos-duration="2000"
+            >
               {/* <img src="/Images/todays.png" alt="label" /> */}
-              <h3>Wear Your Story: Custom Tees for Every Mood</h3>
+              <h3>Wear Your Story : Custom Tees for Every Mood</h3>
               <p>
                 Express yourself with our premium collection of custom T-shirts.
                 Whether it’s bold, quirky, or minimalist, we’ve got a tee for
@@ -35,7 +47,11 @@ const Home = () => {
                 Shop Now
               </Button>
             </div>
-            <div className="right-side">
+            <div
+              className="right-side"
+              data-aos="fade-left"
+              data-aos-duration="2000"
+            >
               <img
                 className="d-block w-100"
                 src="/Images/tshirt4.png"
@@ -46,7 +62,11 @@ const Home = () => {
         </Carousel.Item>
         <Carousel.Item>
           <div className="carousel-content">
-            <div className="left-side">
+            <div
+              className="left-side"
+              data-aos="fade-right"
+              data-aos-duration="2000"
+            >
               {/* <img src="/Images/todays.png" alt="label" /> */}
               <h3>Style Meets Comfort: T-Shirts That Speak</h3>
               <p>
@@ -58,7 +78,11 @@ const Home = () => {
                 Shop Now
               </Button>
             </div>
-            <div className="right-side">
+            <div
+              className="right-side"
+              data-aos="fade-left"
+              data-aos-duration="2000"
+            >
               <img
                 className="d-block w-100"
                 src="/Images/pngegg.png" // Replace with your image source
@@ -69,7 +93,11 @@ const Home = () => {
         </Carousel.Item>
         <Carousel.Item>
           <div className="carousel-content">
-            <div className="left-side">
+            <div
+              className="left-side"
+              data-aos="fade-right"
+              data-aos-duration="2000"
+            >
               {/* <img src="/Images/todays.png" alt="label" /> */}
               <h3>Your Style, Your Tee: Find the Perfect Fit</h3>
               <p>
@@ -81,7 +109,11 @@ const Home = () => {
                 Shop Now
               </Button>
             </div>
-            <div className="right-side">
+            <div
+              className="right-side"
+              data-aos="fade-left"
+              data-aos-duration="2000"
+            >
               <img
                 className="d-block w-100"
                 src="/Images/tshirt3.png" // Replace with your image source

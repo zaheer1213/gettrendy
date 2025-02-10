@@ -3,6 +3,8 @@ import "./Categories.css";
 import axios from "axios";
 import { BASEURL } from "../Comman/CommanConstans";
 import { useNavigate } from "react-router-dom";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const Categories = () => {
   const navigate = useNavigate();
@@ -30,7 +32,7 @@ const Categories = () => {
     getAllCategories();
   }, []);
   return (
-    <div className="categories-container">
+    <div className="categories-container" data-aos="zoom-in-down">
       {allCategorise.map((category, index) => (
         <div
           key={category.id}

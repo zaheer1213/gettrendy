@@ -135,7 +135,7 @@ const Navigation = () => {
       0
     )
     setCartQuantity(totalQuantity)
-  }, [userToken, cartItems])
+  }, [userToken,cartItems])
   return (
     <>
       <Navbar
@@ -479,14 +479,17 @@ const Navigation = () => {
 
           {/* Cart Items Container with Auto Scroll */}
           <div className='cart-items-container'>
-            {cartItems.length > 0 ? (
-              cartItems.map(item => (
-                <div className='customs-shop-card mt-3' key={item._id}>
+            {cartItems?.length > 0 ? (
+              cartItems?.map(item => (
+                <div
+                  className='customs-shop-card mt-3'
+                  key={item.productId._id}
+                >
                   <Row noGutters className='align-items-center g-5'>
                     <Col xs={4} className='text-center'>
                       <img
                         src={`${ImageUrl}${item?.productId?.image}`}
-                        alt={item.product}
+                        alt='img'
                         className='shop-img'
                       />
                     </Col>

@@ -1,6 +1,7 @@
 // const BASEURL = "http://localhost:8000/urls";
 const BASEURL = 'https://api.gettrendy.in/urls'
 const ImageUrl = 'https://api.gettrendy.in'
+const KEY = 'rzp_test_V7TIw8M2tCh2RL'
 
 // Countries List
 const Countries = [
@@ -28,4 +29,4 @@ const UserRoles = {
   STORE_ADMIN: 'Store_admin',
   DELIVERY_MAN: 'Delivery_man'
 }
-export { BASEURL, Countries, UserRoles, ImageUrl }
+export { BASEURL, Countries, UserRoles, ImageUrl, KEY }

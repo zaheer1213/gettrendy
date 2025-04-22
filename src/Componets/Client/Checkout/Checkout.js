@@ -1,101 +1,101 @@
-import React, { useEffect, useState } from "react";
-import "./Checkout.css"; // Custom styles for alignment and spacing
-import Footer from "../Footer/Footer";
-import axios from "axios";
-import { BASEURL } from "../Comman/CommanConstans";
-import { useAuth } from "../../AuthContext/AuthContext";
-import { useCart } from "../../CartContext/CartContext";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import './Checkout.css' // Custom styles for alignment and spacing
+import Footer from '../Footer/Footer'
+import axios from 'axios'
+import { BASEURL, KEY } from '../Comman/CommanConstans'
+import { useAuth } from '../../AuthContext/AuthContext'
+import { useCart } from '../../CartContext/CartContext'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const Checkout = () => {
-  const navigate = useNavigate();
-  const { userToken } = useAuth();
-  const { cartItems } = useCart();
-  const [countries, setCountries] = useState([]);
+  const navigate = useNavigate()
+  const { userToken, userID } = useAuth()
+  const { cartItems } = useCart()
+  const [countries, setCountries] = useState([])
   const [formData, setFormData] = useState({
-    userId: "",
-    fullName: "",
-    companyName: "",
-    country: "",
-    address: "",
-    apartment: "",
-    city: "",
-    state: "",
-    postcode: "",
-    phone: "",
-    email: "",
-    orderNotes: "",
-  });
+    userId: '',
+    fullName: '',
+    companyName: '',
+    country: '',
+    address: '',
+    apartment: '',
+    city: '',
+    state: '',
+    postcode: '',
+    phone: '',
+    email: '',
+    orderNotes: ''
+  })
 
-  const [errors, setErrors] = useState({});
-  const [shipping, setShipping] = useState(50);
-  const [paymentType, setPaymentType] = useState("UPI");
+  const [errors, setErrors] = useState({})
+  const [shipping, setShipping] = useState(50)
+  const [paymentType, setPaymentType] = useState('UPI')
 
   const subtotal = cartItems.reduce(
-    (acc, item) => acc + item.product_price * item.quantity,
+    (acc, item) => acc + item?.productId?.price * item.quantity,
     0
-  );
+  )
 
-  const total = subtotal + shipping;
+  const total = subtotal + shipping
 
   // Handle input change
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = e => {
+    const { name, value } = e.target
 
     // Allow only numbers and restrict length to 10 digits
-    if (name === "phone") {
+    if (name === 'phone') {
       if (/^\d{0,10}$/.test(value)) {
-        setFormData({ ...formData, [name]: value });
+        setFormData({ ...formData, [name]: value })
       }
     } else {
-      setFormData({ ...formData, [name]: value });
+      setFormData({ ...formData, [name]: value })
     }
-  };
+  }
 
   // Validation function
   const validate = () => {
-    const newErrors = {};
-    if (!formData.fullName) newErrors.fullName = "Full Name is required";
+    const newErrors = {}
+    if (!formData.fullName) newErrors.fullName = 'Full Name is required'
     // if (!formData.country) newErrors.country = "Country/Region is required";
-    if (!formData.address) newErrors.address = "Street Address is required";
-    if (!formData.city) newErrors.city = "Town/City is required";
+    if (!formData.address) newErrors.address = 'Street Address is required'
+    if (!formData.city) newErrors.city = 'Town/City is required'
     // if (!formData.state) newErrors.state = "State/County is required";
-    if (!formData.postcode) newErrors.postcode = "Postcode/ZIP is required";
-    if (!formData.phone) newErrors.phone = "Phone is required";
-    if (!formData.email) newErrors.email = "Email is required";
+    if (!formData.postcode) newErrors.postcode = 'Postcode/ZIP is required'
+    if (!formData.phone) newErrors.phone = 'Phone is required'
+    if (!formData.email) newErrors.email = 'Email is required'
 
-    return newErrors;
-  };
+    return newErrors
+  }
 
   const getUserInfo = async () => {
     try {
-      const response = await axios.get(`${BASEURL}/accounts/user-profile`, {
+      const response = await axios.get(`${BASEURL}/auth/${userID}`, {
         headers: {
-          "x-access-token": userToken || localStorage.getItem("token"),
-        },
-      });
-      const data = response.data.data;
+          'x-access-token': userToken || localStorage.getItem('token')
+        }
+      })
+      const data = response.data.data
       setFormData({
-        fullName: data.username,
-        phone: data.mobile_number,
+        fullName: data.name,
+        phone: data.phone,
         email: data.email,
-        userId: data.id,
-      });
+        userId: data._id
+      })
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
   const generateOrderId = () => {
     // Generate a random number between 100 and 999 (inclusive)
-    return Math.floor(100 + Math.random() * 900);
-  };
+    return Math.floor(100 + Math.random() * 900)
+  }
   // Handle form submission
-  const handleSubmit = async (e) => {
-    const formErrors = validate();
+  const handleSubmit = async e => {
+    const formErrors = validate()
 
     if (Object.keys(formErrors).length === 0) {
-      const orderId = generateOrderId();
+      const orderId = generateOrderId()
       try {
         const payload = {
           name: formData.fullName,
@@ -109,90 +109,90 @@ const Checkout = () => {
           notes: formData.orderNotes,
           payment_type: paymentType,
           mobile_number: formData.phone,
-          email: formData.email,
-        };
+          email: formData.email
+        }
         const response = await axios.post(
           `${BASEURL}/orders/place-order`,
           payload,
           {
             headers: {
-              "x-access-token": userToken,
-            },
+              'x-access-token': userToken
+            }
           }
-        );
+        )
         if (response.data.error === false) {
-          if (paymentType === "CASH") {
-            navigate("/order-Summary", {
-              state: { orderId: response?.data?.data?.id },
-            });
+          if (paymentType === 'CASH') {
+            navigate('/order-Summary', {
+              state: { orderId: response?.data?.data?.id }
+            })
           } else {
-            window.location.href = response.data.pay_page_url;
+            window.location.href = response.data.pay_page_url
           }
         } else {
-          toast.error("something went wrong");
+          toast.error('something went wrong')
         }
       } catch (error) {
-        console.log(error);
-        const message1 = error?.response?.data?.message[0];
-        const message2 = error?.response?.data?.message;
-        toast.error(message2 || message1 || "something went wrong");
+        console.log(error)
+        const message1 = error?.response?.data?.message[0]
+        const message2 = error?.response?.data?.message
+        toast.error(message2 || message1 || 'something went wrong')
       }
     } else {
-      setErrors(formErrors);
+      setErrors(formErrors)
     }
-  };
+  }
   // Load Razorpay script dynamically
   const loadRazorpayScript = () => {
-    return new Promise((resolve) => {
-      const script = document.createElement('script');
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-      script.onload = () => resolve(true);
-      script.onerror = () => resolve(false);
-      document.body.appendChild(script);
-    });
-  };
+    return new Promise(resolve => {
+      const script = document.createElement('script')
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js'
+      script.onload = () => resolve(true)
+      script.onerror = () => resolve(false)
+      document.body.appendChild(script)
+    })
+  }
 
   // Open Razorpay Payment
-  const openRazorpayPayment = async (order) => {
-    const scriptLoaded = await loadRazorpayScript();
+  const openRazorpayPayment = async order => {
+    const scriptLoaded = await loadRazorpayScript()
 
     if (!scriptLoaded) {
-      alert('Failed to load Razorpay SDK. Please check your internet connection.');
-      return;
+      alert(
+        'Failed to load Razorpay SDK. Please check your internet connection.'
+      )
+      return
     }
 
-
-
     const options = {
-      key: "rzp_test_V7TIw8M2tCh2RL",
+      key: KEY,
       amount: order.amount,
-      currency: "INR",
+      currency: 'INR',
       order_id: order.id,
-      name: "Get Trendy Store",
-      description: "Payment for your order",
-      image: "/Images/Get_Trendy_Logo.png",
+      name: 'Get Trendy Store',
+      description: 'Payment for your order',
+      image: '/Images/Get_Trendy_Logo.png',
       handler: async function (response) {
         // console.log('Payment successful:', response);
-        window.location.href = '/success';
+        window.location.href = '/success'
       },
       prefill: {
         name: order.customerName,
         email: order.customerEmail,
-        contact: order.customerContact,
+        contact: order.customerContact
       },
       theme: {
-        color: "#F37254"
+        color: '#F37254'
       }
-    };
+    }
 
-    const rzp = new window.Razorpay(options);
-    rzp.open();
+    const rzp = new window.Razorpay(options)
+    rzp.open()
 
     rzp.on('payment.failed', function (response) {
-      console.error('Payment failed:', response.error);
-      alert('Payment Failed. Please try again.');
-    });
-  };
+      console.error('Payment failed:', response.error)
+      alert('Payment Failed. Please try again.')
+    })
+  }
 
   // Payment Verification
   const verifyPayment = async (paymentData, orderId) => {
@@ -200,116 +200,114 @@ const Checkout = () => {
       const response = await fetch('http://localhost:5000/api/verify-payment', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ paymentData, orderId }),
-      });
+        body: JSON.stringify({ paymentData, orderId })
+      })
 
-      const result = await response.json();
+      const result = await response.json()
 
       if (result.success) {
-        alert('Payment Verified Successfully!');
+        alert('Payment Verified Successfully!')
       } else {
-        alert('Payment Verification Failed!');
+        alert('Payment Verification Failed!')
       }
     } catch (error) {
-      console.error('Error during payment verification:', error);
-      alert('Error during payment verification.');
+      console.error('Error during payment verification:', error)
+      alert('Error during payment verification.')
     }
-  };
+  }
 
   // Proceed to Payment
-  const proceedToPayment = async (checkoutData) => {
+  const proceedToPayment = async checkoutData => {
     try {
-      const response = await fetch('http://localhost:5000/api/checkout', {
+      const response = await fetch(`${BASEURL}/checkout`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(checkoutData),
-      });
+        body: JSON.stringify(checkoutData)
+      })
 
-      const result = await response.json();
+      const result = await response.json()
 
       if (!result.order || !result.order.id) {
-        alert('Failed to create order. Please try again.');
-        return;
+        alert('Failed to create order. Please try again.')
+        return
       }
 
-      openRazorpayPayment(result.order);
+      openRazorpayPayment(result.order)
     } catch (error) {
-      console.error('Error during payment initiation:', error);
-      alert('Something went wrong. Please try again.');
+      console.error('Error during payment initiation:', error)
+      alert('Something went wrong. Please try again.')
     }
-  };
+  }
 
   // Handle Checkout
   const handleCheckout = () => {
     const checkoutData = {
-      "userId": "67d7fa48d08a0aaea1830a60",
-      "address": {
-        "fullName": "Zaheer Baig",
-        "streetAddress": "123 Street",
-        "apartment": "",
-        "city": "City",
-        "zip": "12345",
-        "orderNotes": "Leave at the door"
+      userId: userID,
+      address: {
+        fullName: formData.fullName,
+        streetAddress: formData.address,
+        apartment: formData.apartment,
+        city: formData.city,
+        zip: formData.postcode,
+        orderNotes: formData.orderNotes
       },
-      "shippingMethod": "Flat rate",
-      "paymentMethod": "UPI",
-      "totalAmount": 1048,
-      "phone": "7820931612",
-      "email": "zaheerbaig242@gmail.com",
-      "status": "Pending"
+      shippingMethod: 'Flat rate',
+      paymentMethod: 'UPI',
+      totalAmount: total,
+      phone: formData.phone,
+      email: formData.email,
+      status: 'Pending'
     }
 
-
-
-    proceedToPayment(checkoutData);
-  };
-
+    proceedToPayment(checkoutData)
+  }
 
   const getCountries = async () => {
     try {
-      const response = await axios.get("https://restcountries.com/v3.1/all");
-      const countryList = response.data.map((country) => country.name.common);
-      setCountries(countryList); // Set the country list in state
+      const response = await axios.get('https://restcountries.com/v3.1/all')
+      const countryList = response.data.map(country => country.name.common)
+      setCountries(countryList) // Set the country list in state
     } catch (error) {
-      console.error("Error fetching country list: ", error);
+      console.error('Error fetching country list: ', error)
     }
-  };
+  }
 
   useEffect(() => {
     if (userToken) {
-      getUserInfo();
+      getUserInfo()
     }
-    getCountries();
-  }, [userToken]);
+    getCountries()
+  }, [userToken])
   return (
     <>
-      <div className="container checkout-page">
+      <div className='container checkout-page'>
         <h2>Checkout</h2>
         <p>Home &bull; Checkout</p>
-        <div className="row">
-          <div className="col-md-8">
-            <div className="billing-details">
+        <div className='row'>
+          <div className='col-md-8'>
+            <div className='billing-details'>
               <h3>Billing Details</h3>
               <form>
                 {/* Full Name */}
-                <div className="form-group">
+                <div className='form-group'>
                   <label>
-                    Full Name <span className="require">*</span>
+                    Full Name <span className='require'>*</span>
                   </label>
                   <input
-                    type="text"
-                    className={`form-control ${errors.fullName ? "is-invalid" : ""
-                      }`}
-                    placeholder="Full Name"
-                    name="fullName"
+                    type='text'
+                    className={`form-control ${
+                      errors.fullName ? 'is-invalid' : ''
+                    }`}
+                    placeholder='Full Name'
+                    name='fullName'
                     value={formData.fullName}
                     onChange={handleChange}
                     required
                   />
                   {errors.fullName && (
-                    <p className="text-danger">{errors.fullName}</p>
+                    <p className='text-danger'>{errors.fullName}</p>
                   )}
                 </div>
 
@@ -338,52 +336,52 @@ const Checkout = () => {
                 </div> */}
 
                 {/* Street Address */}
-                <div className="form-group">
+                <div className='form-group'>
                   <label>
-                    Street Address <span className="require">*</span>
+                    Street Address <span className='require'>*</span>
                   </label>
                   <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Street address"
-                    name="address"
+                    type='text'
+                    className='form-control'
+                    placeholder='Street address'
+                    name='address'
                     value={formData.address}
                     onChange={handleChange}
                     required
                   />
                   {errors.address && (
-                    <p className="text-danger">{errors.address}</p>
+                    <p className='text-danger'>{errors.address}</p>
                   )}
                 </div>
 
                 {/* Apartment */}
-                <div className="form-group">
+                <div className='form-group'>
                   <label>Apartment, suite, unit (optional)</label>
                   <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Apartment, suite, unit"
-                    name="apartment"
+                    type='text'
+                    className='form-control'
+                    placeholder='Apartment, suite, unit'
+                    name='apartment'
                     value={formData.apartment}
                     onChange={handleChange}
                   />
                 </div>
 
                 {/* City */}
-                <div className="form-group">
+                <div className='form-group'>
                   <label>
-                    Town / City <span className="require">*</span>
+                    Town / City <span className='require'>*</span>
                   </label>
                   <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Town/City"
-                    name="city"
+                    type='text'
+                    className='form-control'
+                    placeholder='Town/City'
+                    name='city'
                     value={formData.city}
                     onChange={handleChange}
                     required
                   />
-                  {errors.city && <p className="text-danger">{errors.city}</p>}
+                  {errors.city && <p className='text-danger'>{errors.city}</p>}
                 </div>
 
                 {/* State */}
@@ -406,69 +404,69 @@ const Checkout = () => {
                 </div> */}
 
                 {/* Postcode */}
-                <div className="form-group">
+                <div className='form-group'>
                   <label>
-                    Postcode / ZIP <span className="require">*</span>
+                    Postcode / ZIP <span className='require'>*</span>
                   </label>
                   <input
-                    type="number"
-                    className="form-control"
-                    placeholder="ZIP"
-                    name="postcode"
+                    type='number'
+                    className='form-control'
+                    placeholder='ZIP'
+                    name='postcode'
                     value={formData.postcode}
                     onChange={handleChange}
                     required
                   />
                   {errors.postcode && (
-                    <p className="text-danger">{errors.postcode}</p>
+                    <p className='text-danger'>{errors.postcode}</p>
                   )}
                 </div>
 
                 {/* Phone */}
-                <div className="form-group">
+                <div className='form-group'>
                   <label>
-                    Phone <span className="require">*</span>
+                    Phone <span className='require'>*</span>
                   </label>
                   <input
-                    type="tel"
-                    className="form-control"
-                    placeholder="Phone"
-                    name="phone"
+                    type='tel'
+                    className='form-control'
+                    placeholder='Phone'
+                    name='phone'
                     value={formData.phone}
                     onChange={handleChange}
                     required
                   />
                   {errors.phone && (
-                    <p className="text-danger">{errors.phone}</p>
+                    <p className='text-danger'>{errors.phone}</p>
                   )}
                 </div>
 
                 {/* Email */}
-                <div className="form-group">
+                <div className='form-group'>
                   <label>
-                    Email <span className="require">*</span>
+                    Email <span className='require'>*</span>
                   </label>
                   <input
-                    type="email"
-                    className="form-control"
-                    placeholder="Email"
-                    name="email"
+                    type='email'
+                    className='form-control'
+                    placeholder='Email'
+                    name='email'
                     value={formData.email}
                     onChange={handleChange}
                     required
                   />
                   {errors.email && (
-                    <p className="text-danger">{errors.email}</p>
+                    <p className='text-danger'>{errors.email}</p>
                   )}
                 </div>
 
                 {/* Order Notes */}
-                <div className="form-group">
+                <div className='form-group'>
                   <label>Order notes (optional)</label>
                   <textarea
-                    className="form-control"
-                    placeholder="Notes about your order"
-                    name="orderNotes"
+                    className='form-control'
+                    placeholder='Notes about your order'
+                    name='orderNotes'
                     value={formData.orderNotes}
                     onChange={handleChange}
                   />
@@ -476,26 +474,26 @@ const Checkout = () => {
               </form>
             </div>
           </div>
-          <div className="col-md-4">
-            <div className="order-summary">
+          <div className='col-md-4'>
+            <div className='order-summary'>
               <h3>Your Order</h3>
               {/* Wrap the table body in a div to apply scrolling */}
-              <div className="table-container">
-                <table className="table">
+              <div className='table-container'>
+                <table className='table'>
                   <thead>
                     <tr>
-                      <th className="text-bold">Product</th>
-                      <th className="text-bold">Total</th>
+                      <th className='text-bold'>Product</th>
+                      <th className='text-bold'>Total</th>
                     </tr>
                   </thead>
                   <tbody>
                     {/* Dynamically map over cart items */}
-                    {cartItems.map((item) => (
+                    {cartItems.map(item => (
                       <tr key={item.id}>
                         <td>
-                          {item.product_name} x {item.quantity}
+                          {item.productId.name} x {item.quantity}
                         </td>
-                        <td>₹{item.product_price * item.quantity}</td>
+                        <td>₹{item.productId.price * item.quantity}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -503,7 +501,7 @@ const Checkout = () => {
               </div>
 
               {/* Subtotal */}
-              <table className="table">
+              <table className='table'>
                 <tbody>
                   <tr>
                     <td>
@@ -519,20 +517,20 @@ const Checkout = () => {
                     </td>
                     <td>
                       <input
-                        type="radio"
-                        name="shipping"
-                        value="flat"
+                        type='radio'
+                        name='shipping'
+                        value='flat'
                         checked={shipping === 50}
                         onChange={() => setShipping(50)}
-                      />{" "}
+                      />{' '}
                       Flat rate: ₹50.00 <br />
                       <input
-                        type="radio"
-                        name="shipping"
-                        value="local"
+                        type='radio'
+                        name='shipping'
+                        value='local'
                         checked={shipping === 25}
                         onChange={() => setShipping(25)}
-                      />{" "}
+                      />{' '}
                       Local pickup: ₹25.00
                     </td>
                   </tr>
@@ -543,28 +541,28 @@ const Checkout = () => {
                     </td>
                     <td>
                       <input
-                        type="radio"
-                        name="Payment Type"
-                        value="CASH"
-                        checked={paymentType === "CASH"}
-                        onChange={() => setPaymentType("CASH")}
-                      />{" "}
+                        type='radio'
+                        name='Payment Type'
+                        value='CASH'
+                        checked={paymentType === 'CASH'}
+                        onChange={() => setPaymentType('CASH')}
+                      />{' '}
                       CASH ON DELIVERY <br />
                       <input
-                        type="radio"
-                        name="Payment Type"
-                        value="UPI"
-                        checked={paymentType === "UPI"}
-                        onChange={() => setPaymentType("UPI")}
-                      />{" "}
+                        type='radio'
+                        name='Payment Type'
+                        value='UPI'
+                        checked={paymentType === 'UPI'}
+                        onChange={() => setPaymentType('UPI')}
+                      />{' '}
                       UPI
                     </td>
                   </tr>
 
                   {/* Total */}
                   <tr>
-                    <td className="text-bold">Total</td>
-                    <td className="text-bold">₹{total}</td>
+                    <td className='text-bold'>Total</td>
+                    <td className='text-bold'>₹{total}</td>
                   </tr>
                 </tbody>
               </table>
@@ -590,8 +588,8 @@ const Checkout = () => {
                 />
               </div> */}
               <button
-                className="btn"
-                style={{ background: "#E9272D", color: "white" }}
+                className='btn'
+                style={{ background: '#E9272D', color: 'white' }}
                 onClick={() => handleCheckout()}
               >
                 Proceed to Payment
@@ -602,7 +600,7 @@ const Checkout = () => {
       </div>
       <Footer />
     </>
-  );
-};
+  )
+}
 
-export default Checkout;
+export default Checkout

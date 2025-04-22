@@ -45,32 +45,31 @@ export const CartProvider = ({ children }) => {
         selectedSize: selectedSize
       }
 
+      // ✅ Check before calling the API
+      const existingItem = cartItems?.find(
+        item =>
+          item.productId._id === product._id &&
+          item.selectedSize === selectedSize
+      )
+
+      if (existingItem) {
+        toast.error('Product with this size already exists in cart')
+        return
+      }
+
+      // ✅ If not exists, proceed to API call
       const response = await axios.post(`${BASEURL}/cart/add`, payload, {
         headers: {
           'x-access-token': userToken
         }
       })
 
-      if (response.data) {
-        const newCartItem = response.data.data
-        const existingItem = cartItems.find(item => item.id === product._id)
+      if (response) {
+        const newCartItems = response.data.cart.items
+        const newCartItem = newCartItems[newCartItems.length - 1] // latest item
 
-        if (existingItem) {
-          setCartItems(prevItems =>
-            prevItems.map(item =>
-              item.id === product._id
-                ? { ...item, quantity: item.quantity + 1 }
-                : item
-            )
-          )
-        } else {
-          setCartItems(prevItems => [
-            ...prevItems,
-            { ...newCartItem, quantity: 1 }
-          ])
-        }
-
-        setCartQuantity(prevQuantity => prevQuantity + 1)
+        setCartItems(prevItems => [...prevItems, newCartItem])
+        setCartQuantity(prevQuantity => prevQuantity + quantity)
         toast.success('Product added to cart')
       }
     } catch (error) {
@@ -127,9 +126,9 @@ export const CartProvider = ({ children }) => {
         }
       })
       if (response.data) {
-        // Remove the item from the cart state
-        console.log(cartItems, 'prevItems',id)
-        setCartItems(prevItems => prevItems.filter(item => item._id !== id))
+        setCartItems(prevItems =>
+          prevItems.filter(item => item.productId._id !== id)
+        )
         setCartQuantity(prevQuantity => prevQuantity - 1)
         toast.success('Item removed from cart')
       }

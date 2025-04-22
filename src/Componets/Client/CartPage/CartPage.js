@@ -8,7 +8,7 @@ import { ImageUrl } from '../Comman/CommanConstans'
 
 const CartPage = () => {
   const navigate = useNavigate()
-  const { cartItems, removeFromCart, updateCartQuantity, loading } = useCart() // Use the updated context
+  const { cartItems, removeFromCart, updateCartQuantity, loading } = useCart()
 
   // Calculate subtotal
   const subtotal = cartItems.reduce(
@@ -19,7 +19,7 @@ const CartPage = () => {
   const handleSubmit = () => {
     navigate('/checkout')
   }
-
+  console.log(cartItems, 'cartItems')
   return (
     <>
       <Container className='cart-page'>
@@ -47,13 +47,13 @@ const CartPage = () => {
                   <tbody>
                     {cartItems &&
                       cartItems.map(item => (
-                        <tr key={item._id}>
+                        <tr key={item.productId._id}>
                           <td>
                             <Row>
                               <Col md={4}>
                                 <img
                                   src={ImageUrl + item?.productId?.image}
-                                  alt="img"
+                                  alt='img'
                                   style={{ width: '100px' }}
                                 />
                               </Col>
@@ -94,7 +94,9 @@ const CartPage = () => {
                               {/* Remove item */}
                               <Button
                                 variant='link'
-                                onClick={() => removeFromCart(item?._id)}
+                                onClick={() =>
+                                  removeFromCart(item?.productId._id)
+                                }
                                 className='ml-2'
                               >
                                 Remove

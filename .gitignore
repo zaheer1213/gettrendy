@@ -1,0 +1,19 @@
+# Node.js dependencies
+node_modules/
+/node_modules
+.node_modules/
+
+/.git/
+
+
+
+# Build directory
+build/
+/build
+.build/
+
+# Lock files
+package-lock.json
+
+# Optional: if you don't want to track package.json (not common)
+package.json

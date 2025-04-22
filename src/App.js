@@ -106,7 +106,7 @@ const App = () => {
           <Route
             path="/admin-allcategory"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <Dashboard />
               </ProtectedRoute>
             }
@@ -114,7 +114,7 @@ const App = () => {
           <Route
             path="/admin-allsubcategory"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <SubCategory />
               </ProtectedRoute>
             }
@@ -122,7 +122,7 @@ const App = () => {
           <Route
             path="/admin-allproducts"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <AllProducts />
               </ProtectedRoute>
             }
@@ -130,7 +130,7 @@ const App = () => {
           <Route
             path="/admin-conatctUs"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <AllContacts />
               </ProtectedRoute>
             }
@@ -138,7 +138,7 @@ const App = () => {
           <Route
             path="/admin-reviews"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <AllReviews />
               </ProtectedRoute>
             }
@@ -146,7 +146,7 @@ const App = () => {
           <Route
             path="/admin-review"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <AddReview />
               </ProtectedRoute>
             }
@@ -154,7 +154,7 @@ const App = () => {
           <Route
             path="/admin-users"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <AllUsers />
               </ProtectedRoute>
             }
@@ -162,7 +162,7 @@ const App = () => {
           <Route
             path="/edit-user"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <EditUser />
               </ProtectedRoute>
             }
@@ -170,7 +170,7 @@ const App = () => {
           <Route
             path="/admin-product"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <AddProduct />
               </ProtectedRoute>
             }
@@ -178,7 +178,7 @@ const App = () => {
           <Route
             path="/admin-category"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <AddCategory />
               </ProtectedRoute>
             }
@@ -186,7 +186,7 @@ const App = () => {
           <Route
             path="/admin-main-category"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <AddMainCategory />
               </ProtectedRoute>
             }
@@ -194,7 +194,7 @@ const App = () => {
           <Route
             path="/admin-store"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <Store />
               </ProtectedRoute>
             }
@@ -202,7 +202,7 @@ const App = () => {
           <Route
             path="/admin-crudStore"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <AddEditStore />
               </ProtectedRoute>
             }
@@ -210,7 +210,7 @@ const App = () => {
           <Route
             path="/admin-AllInventory"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <AllInventory />
               </ProtectedRoute>
             }
@@ -218,7 +218,7 @@ const App = () => {
           <Route
             path="/admin-inventoryCrud"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <InventoryCrud />
               </ProtectedRoute>
             }
@@ -226,7 +226,7 @@ const App = () => {
           <Route
             path="/admin-orders"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <Orders />
               </ProtectedRoute>
             }
@@ -234,7 +234,7 @@ const App = () => {
           <Route
             path="/admin-delivery-partner"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <DeliveryPartner />
               </ProtectedRoute>
             }
@@ -242,7 +242,7 @@ const App = () => {
           <Route
             path="/admin-deliveryPartner"
             element={
-              <ProtectedRoute role="Store_admin">
+              <ProtectedRoute role="admin">
                 <AddEditDeliveryPartners />
               </ProtectedRoute>
             }

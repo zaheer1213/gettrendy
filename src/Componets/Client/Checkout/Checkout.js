@@ -141,6 +141,132 @@ const Checkout = () => {
       setErrors(formErrors);
     }
   };
+  // Load Razorpay script dynamically
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  // Open Razorpay Payment
+  const openRazorpayPayment = async (order) => {
+    const scriptLoaded = await loadRazorpayScript();
+
+    if (!scriptLoaded) {
+      alert('Failed to load Razorpay SDK. Please check your internet connection.');
+      return;
+    }
+
+
+
+    const options = {
+      key: "rzp_test_V7TIw8M2tCh2RL",
+      amount: order.amount,
+      currency: "INR",
+      order_id: order.id,
+      name: "Get Trendy Store",
+      description: "Payment for your order",
+      image: "/Images/Get_Trendy_Logo.png",
+      handler: async function (response) {
+        // console.log('Payment successful:', response);
+        window.location.href = '/success';
+      },
+      prefill: {
+        name: order.customerName,
+        email: order.customerEmail,
+        contact: order.customerContact,
+      },
+      theme: {
+        color: "#F37254"
+      }
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+
+    rzp.on('payment.failed', function (response) {
+      console.error('Payment failed:', response.error);
+      alert('Payment Failed. Please try again.');
+    });
+  };
+
+  // Payment Verification
+  const verifyPayment = async (paymentData, orderId) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/verify-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ paymentData, orderId }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert('Payment Verified Successfully!');
+      } else {
+        alert('Payment Verification Failed!');
+      }
+    } catch (error) {
+      console.error('Error during payment verification:', error);
+      alert('Error during payment verification.');
+    }
+  };
+
+  // Proceed to Payment
+  const proceedToPayment = async (checkoutData) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(checkoutData),
+      });
+
+      const result = await response.json();
+
+      if (!result.order || !result.order.id) {
+        alert('Failed to create order. Please try again.');
+        return;
+      }
+
+      openRazorpayPayment(result.order);
+    } catch (error) {
+      console.error('Error during payment initiation:', error);
+      alert('Something went wrong. Please try again.');
+    }
+  };
+
+  // Handle Checkout
+  const handleCheckout = () => {
+    const checkoutData = {
+      "userId": "67d7fa48d08a0aaea1830a60",
+      "address": {
+        "fullName": "Zaheer Baig",
+        "streetAddress": "123 Street",
+        "apartment": "",
+        "city": "City",
+        "zip": "12345",
+        "orderNotes": "Leave at the door"
+      },
+      "shippingMethod": "Flat rate",
+      "paymentMethod": "UPI",
+      "totalAmount": 1048,
+      "phone": "7820931612",
+      "email": "zaheerbaig242@gmail.com",
+      "status": "Pending"
+    }
+
+
+
+    proceedToPayment(checkoutData);
+  };
+
+
   const getCountries = async () => {
     try {
       const response = await axios.get("https://restcountries.com/v3.1/all");
@@ -174,9 +300,8 @@ const Checkout = () => {
                   </label>
                   <input
                     type="text"
-                    className={`form-control ${
-                      errors.fullName ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${errors.fullName ? "is-invalid" : ""
+                      }`}
                     placeholder="Full Name"
                     name="fullName"
                     value={formData.fullName}
@@ -467,7 +592,7 @@ const Checkout = () => {
               <button
                 className="btn"
                 style={{ background: "#E9272D", color: "white" }}
-                onClick={() => handleSubmit()}
+                onClick={() => handleCheckout()}
               >
                 Proceed to Payment
               </button>

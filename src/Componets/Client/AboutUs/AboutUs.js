@@ -14,12 +14,10 @@ const AboutUs = () => {
           <div className="hero-text-div rounded-3 mx-auto p-5">
             <h1 className="text-center mb-4">About Us</h1>
             <p className="text-center">
-              Welcome to Gettrendy.in, your ultimate destination for stylish and
-              comfortable men's fashion. We specialize in T-shirts, Hoodies, and
-              Jackets, bringing you trendsetting designs that seamlessly blend
-              fashion with function. Whether you're looking to make a statement
-              with bold prints or prefer classic, everyday essentials, we've got
-              you covered.
+              At <a href="https://gettrendy.in/">GetTrendy.in</a>, fashion isn’t just about what you wear—it’s about
+              making a statement. Founded by Mr. Prashant K and Leena Shinde,
+              our mission is to bring stylish, high-quality, and affordable
+              fashion to both men and women who love to stay ahead of trends.
             </p>
           </div>
         </div>
@@ -29,17 +27,19 @@ const AboutUs = () => {
               Stay Trendy with GET Trendy!
             </h2>
             <p>
-              At Gettrendy.in, we believe that style should be effortless and
-              accessible. Our collection is crafted with high-quality fabrics
-              and attention to detail, ensuring you stay comfortable while
-              looking your best—no matter the occasion. From casual streetwear
-              to smart layering options, we provide versatile pieces that fit
-              your lifestyle. With a commitment to affordability, quality, and customer
-              satisfaction, we strive to make your shopping experience smooth
-              and enjoyable. Discover the latest trends and redefine your
-              wardrobe with Gettrendy.in—where comfort meets style.
+              From effortlessly cool T-shirts and hoodies to bold and stylish
+              jackets, we design apparel that blends comfort, confidence, and
+              contemporary style. Whether you're dressing up for a casual day
+              out or looking for a standout outfit, GetTrendy has the perfect
+              look for you.
             </p>
-           
+            <p>
+              With a strong focus on quality, craftsmanship, and customer
+              satisfaction, we ensure that every piece reflects the latest
+              fashion while keeping you comfortable all day long. Join the
+              trendsetters—because when you wear GetTrendy, you don’t just
+              follow trends, you create them.
+            </p>
           </div>
 
           <div class="col-12 col-xl-6 mx-auto ml-xl-auto mr-xl-0">

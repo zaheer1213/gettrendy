@@ -80,7 +80,7 @@ button.send-message-btn {
     display: flex;
     justify-content: space-between;
     width: 100px;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .social-icons a {

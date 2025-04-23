@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 const Checkout = () => {
   const navigate = useNavigate()
   const { userToken, userID } = useAuth()
-  const { cartItems } = useCart()
+  const { cartItems, setCartItems } = useCart()
   const [countries, setCountries] = useState([])
   const [formData, setFormData] = useState({
     userId: '',
@@ -172,8 +172,39 @@ const Checkout = () => {
       description: 'Payment for your order',
       image: '/Images/Get_Trendy_Logo.png',
       handler: async function (response) {
-        // console.log('Payment successful:', response);
-        window.location.href = '/success'
+        try {
+          // Call your backend API to confirm payment success
+          const paymentConfirmResponse = await fetch(
+            `${BASEURL}/payment-success`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id
+              })
+            }
+          )
+
+          const result = await paymentConfirmResponse.json()
+
+          if (!paymentConfirmResponse.ok) {
+            throw new Error(result.error || 'Failed to confirm payment.')
+          }
+
+          // Optionally clear local cart state/context here
+          if (typeof clearCartLocally === 'function') {
+            setCartItems([])
+          }
+
+          // Redirect to success page
+          window.location.href = '/success'
+        } catch (error) {
+          console.error('Error confirming payment:', error)
+          alert(
+            'Something went wrong while confirming your payment. Please contact support.'
+          )
+        }
       },
       prefill: {
         name: order.customerName,

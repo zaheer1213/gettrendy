@@ -175,7 +175,7 @@ const Checkout = () => {
         try {
           // Call your backend API to confirm payment success
           const paymentConfirmResponse = await fetch(
-            `${BASEURL}/payment-success`,
+            `${BASEURL}/checkout/payment-success`,
             {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -193,9 +193,8 @@ const Checkout = () => {
           }
 
           // Optionally clear local cart state/context here
-          if (typeof clearCartLocally === 'function') {
-            setCartItems([])
-          }
+          setCartItems([])
+
 
           // Redirect to success page
           window.location.href = '/success'
@@ -328,9 +327,8 @@ const Checkout = () => {
                   </label>
                   <input
                     type='text'
-                    className={`form-control ${
-                      errors.fullName ? 'is-invalid' : ''
-                    }`}
+                    className={`form-control ${errors.fullName ? 'is-invalid' : ''
+                      }`}
                     placeholder='Full Name'
                     name='fullName'
                     value={formData.fullName}

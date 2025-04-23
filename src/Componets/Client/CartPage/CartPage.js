@@ -19,7 +19,6 @@ const CartPage = () => {
   const handleSubmit = () => {
     navigate('/checkout')
   }
-  console.log(cartItems, 'cartItems')
   return (
     <>
       <Container className='cart-page'>

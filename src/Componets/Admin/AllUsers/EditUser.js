@@ -50,7 +50,7 @@ const EditUser = () => {
     let errors = {};
     if (!formData.username)
       errors.username = "User name is required";
-    
+
     if (!formData.email) errors.email = "Email is required";
     if (!formData.mobile_number) errors.mobile_number = "Mobile Number is required";
     if (!formData.pincode) errors.pincode = "Pin Code is required";
@@ -65,24 +65,18 @@ const EditUser = () => {
       return;
     }
     if (userId) {
-      const formDataToSend = new FormData();
-      if (originalData.username !== formData.username) {
-        formDataToSend.append("User Name", formData.username);
-      }
-      if (originalData.email !== formData.email) {
-        formDataToSend.append("Email", formData.email);
-      }
-      if (originalData.mobile_number !== formData.mobile_number) {
-        formDataToSend.append("Mobile Number", formData.mobile_number);
-      }
-      if (originalData.pincode !== formData.pincode) {
-        formDataToSend.append("Pin Code", formData.pincode);
+
+      const payload = {
+        "name": formData.username,
+        "email": formData.email,
+        "phone": formData.mobile_number,
+        "role": formData.pincode
       }
 
       try {
         const response = await axios.put(
-          `${BASEURL}/accounts/user/${userId}`,
-          formDataToSend,
+          `${BASEURL}/auth/${userId}`,
+          payload,
           {
             headers: {
               "x-access-token": userToken,
@@ -98,16 +92,17 @@ const EditUser = () => {
         console.error(error);
       }
     } else {
-      const formDataToSend = new FormData();
-      formDataToSend.append("User Name", formData.user_name);
-      formDataToSend.append("Email", formData.email);
-      formDataToSend.append("Mobile Number", formData.mobile_number);
-      formDataToSend.append("Pin Code", formData.pincode);
+      const payload = {
+        "name": formData.username,
+        "email": formData.email,
+        "phone": formData.mobile_number,
+        "role": formData.pincode
+      }
 
       try {
         const response = await axios.post(
-          `${BASEURL}/accounts/user`,
-          formDataToSend,
+          `${BASEURL}/auth/register`,
+          payload,
           {
             headers: {
               "x-access-token": userToken,
@@ -125,7 +120,7 @@ const EditUser = () => {
     }
   };
 
-  
+
 
   const getUserById = async (id) => {
     try {
@@ -134,7 +129,7 @@ const EditUser = () => {
       };
       setLoading(true);
       const response = await axios.get(
-        `${BASEURL}/accounts/user/${id}`,
+        `${BASEURL}/auth/${id}`,
         {
           headers,
         }
@@ -143,17 +138,17 @@ const EditUser = () => {
         setLoading(false);
         const data = response.data.data;
         setFormData({
-          username: data.username,
+          username: data.name,
           email: data.email,
-          mobile_number: data.mobile_number,
-          pincode: data.pincode,
+          mobile_number: data.phone,
+          pincode: data.role
         });
         // setSelectedImage(BASEURL + data.category_image);
         setOriginalData({
-          username: data.username,
+          username: data.name,
           email: data.email,
-          mobile_number: data.mobile_number,
-          pincode: data.pincode,
+          mobile_number: data.phone,
+          pincode: data.role
         });
       }
     } catch (error) {
@@ -166,7 +161,7 @@ const EditUser = () => {
       getUserById(userId);
       setUserId(userId);
     }
-    
+
   }, []);
   return (
     <>
@@ -238,7 +233,7 @@ const EditUser = () => {
               </Col>
               <Col md={6}>
                 <Form.Group className="mb-3" controlId="formProductName">
-                  <Form.Label>Pin Code</Form.Label>
+                  <Form.Label>Role</Form.Label>
                   <Form.Control
                     type="text"
                     name="pincode"

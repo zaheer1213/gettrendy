@@ -83,7 +83,7 @@ const AllInventory = () => {
     },
     {
       headerName: "Product Name",
-      field: "product_name",
+      field: "name",
       sortable: true,
       filter: true,
       editable: true,
@@ -150,7 +150,7 @@ const AllInventory = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `${BASEURL}/store-admin/inventory?page=${page}&limit=${limit}`,
+        `${BASEURL}/products?page=${page}&limit=${limit}`,
         {
           headers: {
             "x-access-token": userToken,
@@ -159,13 +159,13 @@ const AllInventory = () => {
       );
       if (response.data) {
         setLoading(false);
-        const dataWithSr = response.data.rows.map((item, index) => ({
+        const dataWithSr = response.data.products.map((item, index) => ({
           ...item,
           sr: (page - 1) * limit + index + 1,
         }));
         setAllStores(dataWithSr);
-        setTotalRows(response.data.count);
-        setTotalPages(response.data.pages_count);
+        setTotalRows(response.data.totalProducts);
+        setTotalPages(response.data.totalPages);
       }
     } catch (error) {
       setLoading(false);

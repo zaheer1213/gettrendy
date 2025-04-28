@@ -11,7 +11,7 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import axios from "axios";
-import { BASEURL } from "../../Client/Comman/CommanConstans";
+import { BASEURL, ImageUrl } from "../../Client/Comman/CommanConstans";
 import { Pagination, Stack, useStepContext } from "@mui/material";
 import Loader from "../../Client/Loader/Loader";
 import { Button, Modal } from "react-bootstrap";
@@ -43,7 +43,7 @@ const AllProducts = () => {
     try {
       handleClose();
       const response = await axios.delete(
-        `${BASEURL}/customers/products/${id}`
+        `${BASEURL}/products/${id}`
       );
       if (response) {
         setMessage("record deleted successfully");
@@ -75,41 +75,21 @@ const AllProducts = () => {
     },
     {
       headerName: "Product Name",
-      field: "product_name",
+      field: "name",
       sortable: true,
       filter: true,
       editable: true,
-    },
-    {
-      headerName: "No Of Pieces / Count",
-      field: "no_of_pices",
-      sortable: true,
-      filter: true,
-      editable: true,
-      cellRenderer: (params) => {
-        return params.value ? params.value : "-";
-      },
-    },
-    {
-      headerName: "Weight",
-      field: "weight",
-      sortable: true,
-      filter: true,
-      editable: true,
-      cellRenderer: (params) => {
-        return params.value ? params.value : "-";
-      },
     },
     {
       headerName: "Product Image",
-      field: "category_image",
+      field: "image",
       sortable: true,
       filter: true,
       editable: true,
       cellRenderer: (params) => (
         <>
           <img
-            src={BASEURL + params.data.product_image}
+            src={ImageUrl + params.data.image}
             alt="category_image"
             style={{ height: "50px", width: "50px" }}
           />
@@ -124,6 +104,13 @@ const AllProducts = () => {
       editable: true,
     },
     {
+      headerName: "Product Price",
+      field: "price",
+      sortable: true,
+      filter: true,
+      editable: true,
+    },
+    {
       headerName: "Action",
       field: "id",
       cellRenderer: (params) => (
@@ -132,14 +119,14 @@ const AllProducts = () => {
             icon={faPenToSquare}
             title="Edit"
             className="action-icon"
-            onClick={() => handleEdit(params.value)}
+            onClick={() => handleEdit(params.data._id)}
           />
           &nbsp;&nbsp;
           <FontAwesomeIcon
             icon={faTrash}
             title="Delete"
             className="action-icon"
-            onClick={() => handleOpenDelete(params.value)}
+            onClick={() => handleOpenDelete(params.data._id)}
           />
         </>
       ),
@@ -160,18 +147,18 @@ const AllProducts = () => {
       };
       setLoading(true);
       const response = await axios.get(
-        `${BASEURL}/customers/products?page=${page}&limit=${limit}`,
+        `${BASEURL}/products?page=${page}&limit=${limit}`,
         { headers }
       );
       if (response) {
         setLoading(false);
-        const dataWithSr = response.data.rows.map((item, index) => ({
+        const dataWithSr = response.data.products.map((item, index) => ({
           ...item,
           sr: (page - 1) * limit + index + 1,
         }));
         setAllCars(dataWithSr);
-        setTotalRows(response.data.count);
-        setTotalPages(response.data.pages_count);
+        setTotalRows(response.data.totalProducts);
+        setTotalPages(response.data.currentPage);
       }
     } catch (error) {
       setLoading(false);

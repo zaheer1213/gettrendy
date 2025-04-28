@@ -11,7 +11,7 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import axios from "axios";
-import { BASEURL } from "../../Client/Comman/CommanConstans";
+import { BASEURL, ImageUrl } from "../../Client/Comman/CommanConstans";
 import { Pagination, Stack } from "@mui/material";
 import Loader from "../../Client/Loader/Loader";
 import { Button, Modal } from "react-bootstrap";
@@ -47,7 +47,7 @@ const Dashboard = () => {
         "x-access-token": token,
       };
       const response = await axios.delete(
-        `${BASEURL}/kgn-admin/category/${id}`,
+        `${BASEURL}/category/${id}`,
         { headers }
       );
       if (response) {
@@ -77,21 +77,21 @@ const Dashboard = () => {
     },
     {
       headerName: "Category Name",
-      field: "category_name",
+      field: "name",
       sortable: true,
       filter: true,
       editable: true,
     },
     {
       headerName: "Category Image",
-      field: "category_image",
+      field: "image",
       sortable: true,
       filter: true,
       editable: true,
       cellRenderer: (params) => (
         <>
           <img
-            src={BASEURL + params.data.category_image}
+            src={ImageUrl + params.data.image}
             alt="category_image"
             style={{ height: "50px", width: "50px" }}
           />
@@ -100,7 +100,7 @@ const Dashboard = () => {
     },
     {
       headerName: "Category Description",
-      field: "category_description",
+      field: "description",
       sortable: true,
       filter: true,
       editable: true,
@@ -115,14 +115,14 @@ const Dashboard = () => {
             icon={faPenToSquare}
             title="Edit"
             className="action-icon"
-            onClick={() => handleEdit(params.value)}
+            onClick={() => handleEdit(params.data._id)}
           />
           &nbsp;&nbsp;
           <FontAwesomeIcon
             icon={faTrash}
             title="Delete"
             className="action-icon"
-            onClick={() => handleOpenDelete(params.value)}
+            onClick={() => handleOpenDelete(params.data._id)}
           />
         </>
       ),
@@ -142,18 +142,18 @@ const Dashboard = () => {
       };
       setLoading(true);
       const response = await axios.get(
-        `${BASEURL}/kgn-admin/category?page=${page}&limit=${limit}`,
+        `${BASEURL}/category?page=${page}&limit=${limit}`,
         { headers }
       );
       if (response) {
         setLoading(false);
-        const dataWithSr = response.data.rows.map((item, index) => ({
+        const dataWithSr = response.data.categories.map((item, index) => ({
           ...item,
           sr: (page - 1) * limit + index + 1,
         }));
         setAllCars(dataWithSr);
-        setTotalRows(response.data.count); // Set total row count
-        setTotalPages(response.data.pages_count);
+        setTotalRows(response.data.totalCategories); // Set total row count
+        setTotalPages(response.data.totalPages);
       }
     } catch (error) {
       setLoading(false);

@@ -115,7 +115,7 @@ function Register () {
           setName('')
           setPassword('')
           setConfirmPassword('')
-          navigate('/login')
+          navigate('/')
         }
         setLoading(false)
       } catch (error) {

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { BASEURL } from "../../Client/Comman/CommanConstans";
+import { BASEURL, ImageUrl } from "../../Client/Comman/CommanConstans";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -29,6 +29,9 @@ const AddProduct = () => {
     count: 0,
     weight: "",
   });
+  const [sizes, setSizes] = useState([
+    { size: "", stock: "" }
+  ]);
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
   const [originalData, setOriginalData] = useState({
@@ -42,20 +45,41 @@ const AddProduct = () => {
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: files ? files[0] : value, // Handle file input
-    }));
+
     if (files) {
-      const file = e?.target?.files[0];
+      const file = files[0];
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: file,
+      }));
       setSelectedImage(URL.createObjectURL(file));
+    } else {
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
     }
   };
+  const handleSizeChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedSizes = [...sizes];
+    updatedSizes[index][name] = value;
+    setSizes(updatedSizes);
+  };
 
+
+  const handleAddSize = () => {
+    setSizes([...sizes, { size: "", stock: "" }]);
+  };
+
+  const handleRemoveSize = (index) => {
+    const updatedSizes = sizes.filter((_, i) => i !== index);
+    setSizes(updatedSizes);
+  };
   const validate = () => {
     let errors = {};
     if (!formData.productName) errors.productName = "Product name is required";
-    if (!formData.subCategory) errors.subCategory = "Sub category is required";
+    if (!formData.subCategory) errors.subCategory = "Category is required";
     if (!productId) {
       if (!formData.productImage)
         errors.productImage = "Product image is required";
@@ -76,14 +100,12 @@ const AddProduct = () => {
     if (productId) {
       const formDataToSend = new FormData();
       if (originalData.productName !== formData.productName) {
-        formDataToSend.append("product_name", formData.productName);
+        formDataToSend.append("name", formData.productName);
       }
       if (originalData.subCategory !== formData.subCategory) {
-        formDataToSend.append("sub_category", formData.subCategory);
+        formDataToSend.append("category", formData.subCategory);
       }
-      if (originalData.productImage !== formData.productImage) {
-        formDataToSend.append("product_image", formData.productImage);
-      }
+
       if (originalData.price !== formData.price) {
         formDataToSend.append("price", formData.price);
       }
@@ -91,17 +113,16 @@ const AddProduct = () => {
         formDataToSend.append("description", formData.description);
       }
       if (formData.productImage) {
-        formDataToSend.append("product_image", formData.productImage);
+        formDataToSend.append("image", formData.productImage);
       }
-      if (formData.count !== originalData.count) {
-        formDataToSend.append("no_of_pices", formData.count);
-      }
-      if (originalData.weight !== formData.weight) {
-        formDataToSend.append("weight", formData.weight);
-      }
+      const finalData = sizes.map(item => ({
+        size: item.size,
+        stock: Number(item.stock)
+      }));
+      formDataToSend.append("sizes", JSON.stringify(finalData))
       try {
         const response = await axios.put(
-          `${BASEURL}/customers/products/${productId}`,
+          `${BASEURL}/products/${productId}`,
           formDataToSend,
           {
             headers: {
@@ -112,24 +133,28 @@ const AddProduct = () => {
         if (response.data) {
           navigate("/admin-allproducts");
         }
-        setMessage("Product added successfully");
+        setMessage("Product Edit successfully");
       } catch (error) {
-        setMessage("Failed to add product");
+        setMessage("Failed to Edit  product");
         console.error(error);
       }
     } else {
+      const finalData = sizes.map(item => ({
+        size: item.size,
+        stock: Number(item.stock)
+      }));
       const formDataToSend = new FormData();
-      formDataToSend.append("product_name", formData.productName);
-      formDataToSend.append("sub_category", formData.subCategory);
-      formDataToSend.append("product_image", formData.productImage);
+      formDataToSend.append("name", formData.productName);
+      formDataToSend.append("category", formData.subCategory);
+      formDataToSend.append("image", formData.productImage);
       formDataToSend.append("price", formData.price);
       formDataToSend.append("description", formData.description);
-      formDataToSend.append("no_of_pices", formData.count);
-      formDataToSend.append("weight", formData.weight);
+      formDataToSend.append("sizes", JSON.stringify(finalData))
+
 
       try {
         const response = await axios.post(
-          `${BASEURL}/customers/products`,
+          `${BASEURL}/products`,
           formDataToSend,
           {
             headers: {
@@ -144,7 +169,7 @@ const AddProduct = () => {
       } catch (error) {
         const errorMessage =
           error?.response?.data?.message &&
-          Array.isArray(error.response.data.message)
+            Array.isArray(error.response.data.message)
             ? error.response.data.message[0]
             : "Something went wrong";
 
@@ -158,10 +183,10 @@ const AddProduct = () => {
   const getAllSubCategory = async () => {
     try {
       const response = await axios.get(
-        `${BASEURL}/customers/sub-category?page=1&limit=50`
+        `${BASEURL}/category/?page=1&limit=50`
       );
       if (response) {
-        setSubCategory(response.data.rows);
+        setSubCategory(response.data.categories);
       }
     } catch (error) {
       console.log(error);
@@ -177,28 +202,25 @@ const AddProduct = () => {
         "x-access-token": userToken,
       };
       setLoading(true);
-      const response = await axios.get(`${BASEURL}/kgn-admin/products/${id}`, {
+      const response = await axios.get(`${BASEURL}/products/${id}`, {
         headers,
       });
       if (response) {
         setLoading(false);
-        const data = response.data.data;
+        const data = response.data;
         setFormData({
-          productName: data.product_name,
-          subCategory: data.sub_category,
+          productName: data.name,
+          subCategory: data.category,
           price: data.price,
           description: data.description,
-          weight: data.weight,
-          count: data.no_of_pices,
         });
-        setSelectedImage(BASEURL + data.product_image);
+        setSizes(data.sizes);
+        setSelectedImage(ImageUrl + data.image);
         setOriginalData({
-          productName: data.product_name,
-          subCategory: data.sub_category,
+          productName: data.name,
+          subCategory: data.category,
           price: data.price,
           description: data.description,
-          weight: data.weight,
-          count: data.no_of_pices,
         });
       }
     } catch (error) {
@@ -262,17 +284,16 @@ const AddProduct = () => {
 
               <Col md={6}>
                 <Form.Group className="mb-3" controlId="formSubCategory">
-                  <Form.Label>Sub category</Form.Label>
+                  <Form.Label>Category</Form.Label>
                   <Form.Select
                     name="subCategory"
                     value={formData.subCategory}
                     onChange={handleInputChange}
                     isInvalid={!!errors.subCategory}
                   >
-                    <option value="">Select a subcategory</option>
                     {subCategory &&
                       subCategory.map((row) => (
-                        <option value={row.id} key={row.id}>
+                        <option value={row._id} key={row._id}>
                           {row.name}
                         </option>
                       ))}
@@ -335,41 +356,49 @@ const AddProduct = () => {
                 </Row>
               </Col>
             </Row>
+
             <Row>
               <Col md={6}>
-                <Form.Group className="mb-3" controlId="formProductName">
-                  <Form.Label>Product Count / Pice</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="count"
-                    placeholder="Enter product count"
-                    value={formData.count}
-                    onChange={handleInputChange}
-                    isInvalid={!!errors.count}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.count}
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <Form.Label>Sizes & Stock</Form.Label>
+                {sizes.map((item, index) => (
+                  <Row key={index} className="mb-2">
+                    <Col md={5}>
+                      <Form.Control
+                        type="text"
+                        placeholder="Size (e.g. M, L, XL)"
+                        name="size"
+                        value={item.size}
+                        onChange={(e) => handleSizeChange(e, index,)}
+                        required
+                      />
+                    </Col>
+                    <Col md={5}>
+                      <Form.Control
+                        type="number"
+                        placeholder="Stock"
+                        name="stock"
+                        value={item.stock}
+                        onChange={(e) => handleSizeChange(e, index)}
+                        required
+                      />
+                    </Col>
+                    <Col md={2}>
+                      <Button
+                        variant="danger"
+                        onClick={() => handleRemoveSize(index)}
+                        className="w-100"
+                        title="remove"
+                      >
+                        X
+                      </Button>
+
+                    </Col>
+                  </Row>
+                ))}
+                <Button variant="success" onClick={handleAddSize}>
+                  + Add Size
+                </Button>
               </Col>
-              <Col md={6}>
-                <Form.Group className="mb-3" controlId="formProductName">
-                  <Form.Label>Product Weight</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="weight"
-                    placeholder="Ex 500gm / 1Kg"
-                    value={formData.weight}
-                    onChange={handleInputChange}
-                    isInvalid={!!errors.weight}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.weight}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
               <Col md={6}>
                 <Form.Group className="mb-3" controlId="formDescription">
                   <Form.Label>Description</Form.Label>

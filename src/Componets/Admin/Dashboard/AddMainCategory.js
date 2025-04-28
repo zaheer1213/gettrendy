@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { BASEURL } from "../../Client/Comman/CommanConstans";
+import { BASEURL, ImageUrl } from "../../Client/Comman/CommanConstans";
 import { useAuth } from "../../AuthContext/AuthContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loader from "../../Client/Loader/Loader";
@@ -66,18 +66,18 @@ const AddMainCategory = () => {
     if (categoryId) {
       const formDataToSend = new FormData();
       if (originalData.categoryname !== formData.categoryname) {
-        formDataToSend.append("category_name", formData.categoryname);
+        formDataToSend.append("name", formData.categoryname);
       }
       if (originalData.categoryimage !== formData.categoryimage) {
-        formDataToSend.append("category_image", formData.categoryimage);
+        formDataToSend.append("image", formData.categoryimage);
       }
       if (originalData.description !== formData.description) {
-        formDataToSend.append("category_description", formData.description);
+        formDataToSend.append("description", formData.description);
       }
 
       try {
         const response = await axios.put(
-          `${BASEURL}/kgn-admin/category/${categoryId}`,
+          `${BASEURL}/category/${categoryId}`,
           formDataToSend,
           {
             headers: {
@@ -95,13 +95,13 @@ const AddMainCategory = () => {
       }
     } else {
       const formDataToSend = new FormData();
-      formDataToSend.append("category_name", formData.categoryname);
-      formDataToSend.append("category_image", formData.categoryimage);
-      formDataToSend.append("category_description", formData.description);
+      formDataToSend.append("name", formData.categoryname);
+      formDataToSend.append("image", formData.categoryimage);
+      formDataToSend.append("description", formData.description);
 
       try {
         const response = await axios.post(
-          `${BASEURL}/kgn-admin/category`,
+          `${BASEURL}/category`,
           formDataToSend,
           {
             headers: {
@@ -126,20 +126,20 @@ const AddMainCategory = () => {
         "x-access-token": userToken,
       };
       setLoading(true);
-      const response = await axios.get(`${BASEURL}/kgn-admin/category/${id}`, {
+      const response = await axios.get(`${BASEURL}/category/${id}`, {
         headers,
       });
       if (response) {
         setLoading(false);
-        const data = response.data.data;
+        const data = response.data;
         setFormData({
-          categoryname: data.category_name,
-          description: data.category_description,
+          categoryname: data.name,
+          description: data.description,
         });
-        setSelectedImage(BASEURL + data.category_image);
+        setSelectedImage(ImageUrl + data.image);
         setOriginalData({
           categoryname: data.name,
-          description: data.category_description,
+          description: data.description,
         });
       }
     } catch (error) {

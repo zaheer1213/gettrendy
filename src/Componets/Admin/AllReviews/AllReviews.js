@@ -51,7 +51,7 @@ const AllReviews = () => {
       const headers = {
         "x-access-token": token,
       };
-      const response = await axios.delete(`${BASEURL}/products/review/${id}`, {
+      const response = await axios.delete(`${BASEURL}/review/review/${id}`, {
         headers,
       });
       if (response) {
@@ -114,14 +114,14 @@ const AllReviews = () => {
     },
     {
       headerName: "Description",
-      field: "description",
+      field: "review",
       sortable: true,
       filter: true,
       editable: true,
     },
     {
       headerName: "Action",
-      field: "id",
+      field: "_id",
       cellRenderer: (params) => (
         <>
           <FontAwesomeIcon
@@ -156,18 +156,18 @@ const AllReviews = () => {
       };
       setLoading(true);
       const response = await axios.get(
-        `${BASEURL}/products/review?page=${page}&limit=${limit}`,
+        `${BASEURL}/review/getAllReview?page=${page}&limit=${limit}`,
         { headers }
       );
       if (response) {
         setLoading(false);
-        const dataWithSr = response.data.rows.map((item, index) => ({
+        const dataWithSr = response.data.reviews.map((item, index) => ({
           ...item,
           sr: (page - 1) * limit + index + 1,
         }));
         setAllReview(dataWithSr);
-        setTotalRows(response.data.count); // Set total row count
-        setTotalPages(response.data.pages_count);
+        setTotalRows(response.data.totalReviews); // Set total row count
+        setTotalPages(response.data.totalPages);
       }
     } catch (error) {
       setLoading(false);

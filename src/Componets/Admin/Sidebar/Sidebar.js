@@ -113,7 +113,7 @@ function Sidebar() {
             <FontAwesomeIcon icon={faList} className="custom-sidebar-icon" />
             <span>All Category</span>
           </NavLink>
-          <NavLink
+          {/* <NavLink
             to="/admin-allsubcategory"
             className="custom-sidebar-item"
             activeClassName="active"
@@ -123,7 +123,7 @@ function Sidebar() {
               className="custom-sidebar-icon"
             />
             <span>All Sub Category</span>
-          </NavLink>
+          </NavLink> */}
           <NavLink
             to="/admin-allproducts"
             className="custom-sidebar-item"

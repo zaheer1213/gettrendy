@@ -50,8 +50,8 @@ const AllReviews = () => {
       const headers = {
         "x-access-token": token,
       };
-      const response = await axios.delete(
-        `${BASEURL}/accounts/user/${id}`,
+      const response = await axios.post(
+        `${BASEURL}/auth/delete/${id}`,
         { headers }
       );
       if (response) {
@@ -77,7 +77,7 @@ const AllReviews = () => {
     },
     {
       headerName: "Name",
-      field: "username",
+      field: "name",
       sortable: true,
       filter: true,
       editable: true,
@@ -91,22 +91,15 @@ const AllReviews = () => {
     },
     {
       headerName: "Mobile Number",
-      field: "mobile_number",
+      field: "phone",
       sortable: true,
       filter: true,
       editable: true,
     },
-    {
-        headerName: "Pin Code",
-        field: "pincode",
-        sortable: true,
-        filter: true,
-        editable: true,
-      },
 
     {
       headerName: "Action",
-      field: "id",
+      field: "_id",
       cellRenderer: (params) => (
         <>
           <FontAwesomeIcon
@@ -140,17 +133,16 @@ const AllReviews = () => {
       };
       setLoading(true);
       const response = await axios.get(
-        `${BASEURL}/accounts/user?page=${page}&limit=${limit}`, 
+        `${BASEURL}/auth?page=${page}&limit=${limit}`,
         { headers }
       );
       if (response) {
         setLoading(false);
-        const dataWithSr = response.data.rows.map((item, index) => ({
+        const dataWithSr = response.data.users.map((item, index) => ({
           ...item,
           sr: (page - 1) * limit + index + 1,
         }));
         setAllUsers(dataWithSr);
-        console.log(allUsers)
         setTotalRows(response.data.count); // Set total row count
         setTotalPages(response.data.pages_count);
       }
@@ -188,7 +180,7 @@ const AllReviews = () => {
             <FontAwesomeIcon icon={faSearch} className="search-icon" />
             <input type="search" placeholder="Search" />
           </div> */}
-          
+
         </div>
         <div
           className="ag-theme-quartz" // Use the correct theme class

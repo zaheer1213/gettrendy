@@ -39,11 +39,11 @@ const AddReview = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `${BASEURL}/customers/products?page=${1}&limit=${200}`
+        `${BASEURL}/products?page=${1}&limit=${200}`
       );
       if (response) {
         setLoading(false);
-        setAllProducts(response.data.rows);
+        setAllProducts(response.data.products);
       }
     } catch (error) {
       console.log(error);
@@ -157,26 +157,27 @@ const AddReview = () => {
         "x-access-token": userToken,
       };
       setLoading(true);
-      const response = await axios.get(`${BASEURL}/products/review/${id}`, {
+      const response = await axios.get(`${BASEURL}/review/reviews/${id}`, {
         headers,
       });
       if (response) {
         setLoading(false);
-        const data = response.data.data;
+        console.log(response)
+        const data = response.data.reviews;
         setFormData({
           name: data.name,
           ratings: data.rating,
-          description: data.description,
+          description: data.review,
           designation: data.email,
-          product: data.product,
+          product: data.productId,
         });
         setSelectedImage(BASEURL + data.image);
         setOriginalData({
           name: data.name,
           ratings: data.rating,
-          description: data.description,
+          description: data.review,
           designation: data.email,
-          product: data.product,
+          product: data.productId,
         });
       }
     } catch (error) {

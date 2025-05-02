@@ -148,7 +148,7 @@ const Bestsellers = () => {
                         </div>
                         <Card.Body>
                           <Card.Title className='product-title'>
-                            {product.product_name}
+                            {product.name}
                           </Card.Title>
                           <Card.Text className='product-description'>
                             {truncateText(product.description, 100)}

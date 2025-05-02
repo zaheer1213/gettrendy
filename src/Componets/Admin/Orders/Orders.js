@@ -58,6 +58,7 @@ const Orders = () => {
   };
 
   const handleRowClick = (params) => {
+    console.log(params)
     setSelectedOrder(params.data); // Set the clicked row's data to state
   };
   const handleDelete = async () => {
@@ -65,7 +66,7 @@ const Orders = () => {
       handleClose();
       setLoading(true);
       const response = await axios.delete(
-        `${BASEURL}/store-admin/orders/${id}`,
+        `${BASEURL}/checkout/${id}`,
         {
           headers: {
             "x-access-token": userToken,
@@ -85,81 +86,16 @@ const Orders = () => {
   };
 
   const columnDefs = [
-    {
-      headerName: "Sr No",
-      field: "sr",
-      sortable: true,
-      filter: true,
-      editable: false,
-    },
-    {
-      headerName: "Name",
-      field: "name",
-      sortable: true,
-      filter: true,
-      editable: true,
-    },
-    {
-      headerName: "Mobile Number",
-      field: "mobile_number",
-      sortable: true,
-      filter: true,
-      editable: true,
-    },
-    {
-      headerName: "Amount",
-      field: "amount",
-      sortable: true,
-      filter: true,
-      editable: true,
-    },
-    {
-      headerName: "Delivery Cost",
-      field: "delivery_cost",
-      sortable: true,
-      filter: true,
-      editable: true,
-    },
-    {
-      headerName: "Delivery Address",
-      field: "delivery_address",
-      sortable: true,
-      filter: true,
-      editable: true,
-    },
-    {
-      headerName: "Pin code",
-      field: "pincode",
-      sortable: true,
-      filter: true,
-      editable: true,
-    },
-    {
-      headerName: "Payment Type",
-      field: "payment_type",
-      sortable: true,
-      filter: true,
-      editable: true,
-    },
-    {
-      headerName: "Assign Order",
-      field: "id",
-      cellRenderer: (params) => (
-        <>
-          &nbsp;&nbsp;
-          <img
-            src="/Images/orderman.jpg"
-            alt="public/Images/orderman.jpg"
-            style={{ height: "30px", width: "30px" }}
-            title="Assign Order"
-            onClick={() => handleOpenAssignModel(params.value)}
-          />
-        </>
-      ),
-    },
+    { headerName: "Sr No", field: "sr", sortable: true, filter: true },
+    { headerName: "Name", field: "fullName", sortable: true, filter: true },
+    { headerName: "Mobile Number", field: "phone", sortable: true, filter: true },
+    { headerName: "Amount", field: "totalAmount", sortable: true, filter: true },
+    { headerName: "Payment Type", field: "paymentMethod", sortable: true, filter: true },
+    { headerName: "Delivery Address", field: "deliveryAddress", sortable: true, filter: true },
+    { headerName: "Pin code", field: "zip", sortable: true, filter: true },
     {
       headerName: "Action",
-      field: "id",
+      field: "_id",
       cellRenderer: (params) => (
         <>
           <FontAwesomeIcon
@@ -174,11 +110,12 @@ const Orders = () => {
             title="Delete"
             className="action-icon"
             onClick={() => handleOpenDelete(params.value)}
-          />{" "}
+          />
         </>
       ),
     },
   ];
+
   const defaultColDef = {
     flex: 1,
     minWidth: 150,
@@ -189,7 +126,7 @@ const Orders = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `${BASEURL}/store-admin/orders?page=${page}&limit=${limit}`,
+        `${BASEURL}/checkout?page=${page}&limit=${limit}`,
         {
           headers: {
             "x-access-token": userToken,
@@ -198,13 +135,26 @@ const Orders = () => {
       );
       if (response.data) {
         setLoading(false);
-        const dataWithSr = response.data.rows.map((item, index) => ({
+        const dataWithSr = response.data.checkouts.map((item, index) => ({
           ...item,
           sr: (page - 1) * limit + index + 1,
         }));
-        setAllStores(dataWithSr);
-        setTotalRows(response.data.count);
-        setTotalPages(response.data.pages_count);
+        const paidOrders = dataWithSr
+          .filter((order) => order.paymentStatus === "Paid")
+          .map((order, index) => ({
+            sr: index + 1,
+            fullName: order.address.fullName,
+            phone: order.phone,
+            totalAmount: order.totalAmount,
+            paymentMethod: order.paymentMethod,
+            deliveryAddress: `${order.address.streetAddress}, ${order.address.city}`,
+            zip: order.address.zip,
+            _id: order._id,
+          }));
+
+        setAllStores(paidOrders);
+        setTotalRows(response.data.totalCheckouts);
+        setTotalPages(response.data.totalPages);
       }
     } catch (error) {
       setLoading(false);
@@ -326,7 +276,7 @@ const Orders = () => {
             />
           </Stack>
         </div>
-        {selectedOrder && (
+        {/* {selectedOrder && (
           <div className="order-details-container">
             <div className="order-header">
               <span className="shipment-id">
@@ -345,7 +295,6 @@ const Orders = () => {
               {moment(selectedOrder.created_on).format("D MMM YYYY, h:mm A")}
             </div>
 
-            {/* Product List with Scrollable Container */}
             <div className="product-list">
               {selectedOrder.ordered_items.map((product, index) => (
                 <div className="product-item" key={index}>
@@ -367,13 +316,12 @@ const Orders = () => {
               ))}
             </div>
 
-            {/* Total Amount */}
             <div className="order-total">
               <span>Total</span>
               <span className="total-price">₹{selectedOrder.amount}</span>
             </div>
           </div>
-        )}
+        )} */}
       </div>
 
       {/* alert model */}

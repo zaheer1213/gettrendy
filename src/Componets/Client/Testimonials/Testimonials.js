@@ -41,11 +41,11 @@ const Testimonials = () => {
         "x-access-token": token,
       };
       const response = await axios.get(
-        `${BASEURL}/customers/review?page=${page}&limit=${limit}`,
+        `${BASEURL}/review/getAllReview?page=${page}&limit=${limit}`,
         { headers }
       );
       if (response) {
-        setAllReview(response.data.rows);
+        setAllReview(response.data.reviews);
       }
     } catch (error) {
       console.log(error);

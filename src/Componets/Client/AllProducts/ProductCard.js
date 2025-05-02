@@ -150,28 +150,9 @@ const ProductCard = () => {
                       )}
                     </div>
                     <Card.Body>
-                      <Card.Text className='product-weight'>
-                        &nbsp;&nbsp;
-                        {product.weight ? (
-                          <span>• {product.weight} </span>
-                        ) : (
-                          ''
-                        )}{' '}
-                        &nbsp;{' '}
-                        {product.no_of_pices ? (
-                          <span>• {product.no_of_pices} Piece</span>
-                        ) : (
-                          ''
-                        )}{' '}
-                        &nbsp;
-                        {product.serves ? (
-                          <span>• {product.serves} Serves</span>
-                        ) : (
-                          ''
-                        )}{' '}
-                      </Card.Text>
+
                       <Card.Title className='product-title'>
-                        {product.product_name}
+                        {product.name}
                       </Card.Title>
                       <Card.Text className='product-description'>
                         {truncateText(product.description, 100)}
@@ -191,11 +172,10 @@ const ProductCard = () => {
                         <div className='size-section mb-2 mt-2'>
                           {product.sizes.map(size => (
                             <span
-                              className={`size-badge ${
-                                selectedSizes[product._id] === size.size
+                              className={`size-badge ${selectedSizes[product._id] === size.size
                                   ? 'selected'
                                   : ''
-                              }`}
+                                }`}
                               key={size._id}
                               onClick={() =>
                                 setSelectedSizes(prev => ({

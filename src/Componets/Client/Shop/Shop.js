@@ -20,7 +20,7 @@ const Shop = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState(8)
+  const [limit, setLimit] = useState(6)
   const [value, setValue] = useState([20, 37])
   const [allProducts, setAllProducts] = useState([])
   const [pagesCount, setPagesCount] = useState(1)
@@ -310,26 +310,7 @@ const Shop = () => {
                       )}
                     </div>
                     <Card.Body>
-                      <Card.Text className='product-weight'>
-                        &nbsp;&nbsp;
-                        {product.weight ? (
-                          <span>• {product.weight} g</span>
-                        ) : (
-                          ''
-                        )}{' '}
-                        &nbsp;{' '}
-                        {product.no_of_pices ? (
-                          <span>• {product.no_of_pices} Pieces</span>
-                        ) : (
-                          ''
-                        )}{' '}
-                        &nbsp;
-                        {product.serves ? (
-                          <span>• {product.serves} Serves</span>
-                        ) : (
-                          ''
-                        )}{' '}
-                      </Card.Text>
+
                       <Card.Title className='product-title'>
                         {product.name}
                       </Card.Title>
@@ -351,11 +332,10 @@ const Shop = () => {
                         <div className='size-section mb-2 mt-2'>
                           {product.sizes.map(size => (
                             <span
-                              className={`size-badge ${
-                                selectedSizes[product._id] === size.size
+                              className={`size-badge ${selectedSizes[product._id] === size.size
                                   ? 'selected'
                                   : ''
-                              }`}
+                                }`}
                               key={size._id}
                               onClick={() =>
                                 setSelectedSizes(prev => ({
